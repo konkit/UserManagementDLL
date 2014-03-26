@@ -9,6 +9,7 @@
 *.dll.config
 *.cache
 *.suo
+*.mdf
 # Include dlls if they’re in the NuGet packages directory
 !/packages/*/lib/*.dll
 !/packages/*/lib/*/*.dll
@@ -24,7 +25,7 @@ _UpgradeReport_Files/
 ###############
 bin/
 obj/
-TestResults/
+TestResults/mfd
 ###################
 # Web publish log #
 ###################
