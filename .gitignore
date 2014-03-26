@@ -9,6 +9,10 @@
 *.dll.config
 *.cache
 *.suo
+*.dbmdl
+*.mdf
+*.ldf
+*.Database.dbmdl
 # Include dlls if they’re in the NuGet packages directory
 !/packages/*/lib/*.dll
 !/packages/*/lib/*/*.dll
