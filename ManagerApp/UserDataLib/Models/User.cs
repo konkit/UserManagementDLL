@@ -11,8 +11,8 @@ namespace UserDataLib.Models
     {
         public User()
         {
-            OperationGroups = new List<UserHasOperationGroup>();
-            Operation = new List<UserHasOperation>();
+            //OperationGroups = new List<UserHasOperationGroup>();
+            //Operation = new List<UserHasOperation>();
         }
 
         [Key]
@@ -20,7 +20,7 @@ namespace UserDataLib.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public string Salt { get; set; }
-        public ICollection<UserHasOperationGroup> OperationGroups { get; set; }
-        public ICollection<UserHasOperation> Operation { get; set; }
+        public ICollection<Operation> Operations { get; set; }
+        public ICollection<OperationGroup> OperationGroups { get; set; }
     }
 }

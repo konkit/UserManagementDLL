@@ -11,14 +11,14 @@ namespace UserDataLib.Models
     {
         public Operation()
         {
-            Users = new List<UserHasOperation>();
-            OperationGroups = new List<OperationGroupHasOperation>();
+            //Users = new List<UserHasOperation>();
+            //OperationGroups = new List<OperationGroupHasOperation>();
         }
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<UserHasOperation> Users { get; set; }
-        public ICollection<OperationGroupHasOperation> OperationGroups { get; set; }
+        public ICollection<User> Users { get; set; }
+        public ICollection<OperationGroup> OperationGroups { get; set; }
 
 
     }

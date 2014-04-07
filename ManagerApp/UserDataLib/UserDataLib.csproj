@@ -46,13 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\LibContext.cs" />
     <Compile Include="Models\Operation.cs" />
     <Compile Include="Models\OperationGroup.cs" />
-    <Compile Include="Models\OperationGroupHasOperation.cs" />
-    <Compile Include="Models\UserHasOperation.cs" />
-    <Compile Include="Models\UserHasOperationGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Services\GroupManager.cs" />
+    <Compile Include="Services\OperationManager.cs" />
+    <Compile Include="Services\UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

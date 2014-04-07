@@ -7,7 +7,7 @@ using UserDataLib.Models;
 
 namespace ManagerApp.Models
 {
-    public class ManagerContext : DbContext
+    public class ManagerContext : LibContext
     {
         public ManagerContext()
             : base("DefaultConnection")
@@ -15,12 +15,9 @@ namespace ManagerApp.Models
 
         }
 
-        public DbSet<User> User { get; set; }
-        public DbSet<Operation> Operation { get; set; }
-        public DbSet<OperationGroup> OperationGroup { get; set; }
-        public DbSet<UserHasOperation> UserHasOperation { get; set; }
-        public DbSet<UserHasOperationGroup> UserHasOperationGroup { get; set; }
-        public DbSet<OperationGroupHasOperation> OperationGroupHasOperation { get; set; }
+        public DbSet<Item> Item { get; set; }
+
+        
 
         
     }
