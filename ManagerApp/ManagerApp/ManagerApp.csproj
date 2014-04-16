@@ -174,8 +174,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-ManagerApp-20140306080144.mdf" />
-    <Content Include="App_Data\aspnet-ManagerApp-20140306080144_log.ldf" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
