@@ -8,5 +8,6 @@ namespace UserDataLib.Services
 {
     class GroupManager
     {
+        //todo
     }
 }
