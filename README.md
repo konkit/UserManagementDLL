@@ -1,9 +1,21 @@
-UserManagementDLL
+﻿UserManagementDLL
 =================
 
 Jest to aplikacja tworzona w celu realizacji projektu z przedmiotu Bazy Danych III. Szczegółowa specyfikacja jak i początkowy schemat bazy danych znajduje się w folderze [Docs](https://github.com/konkit/UserManagementDLL/tree/master/Docs).
 Projekt składa się z DLL + aplikacja ASP.NET MVC.
 Projekt stworzony w Visual Studio 2013.
+
+
+#####Ważne - instalacja programu
+
+Po sciągnięciu repozytorium należy wykonać następujące kroki:
+- otwórz projekt w Visual Studio 2013
+- otwórz konsole Package Manager Console
+- wpisz w konsolę "Enable-Migrations -F"
+- Przejdź do pliku Migrations/Configuration.cs
+- zmień linijkę AutomaticMigrationsEnabled = false na AutomaticMigrationsEnabled = true;
+- wróć do konsoli, wpisz "Update-Database -F"
+- programuj :)
 
 #####Do poczytania:
 

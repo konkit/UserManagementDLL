@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UserDataLib.Models;
+using System.Security.Cryptography;
+using System.Globalization;
 
 
 namespace UserDataLib.Services
 {
-    
     public class UserManager
     {
+        private const byte SaltValueSize = 24;
         private LibContext db = new LibContext();
 
         public List<User> DisplayUser()
@@ -23,11 +25,13 @@ namespace UserDataLib.Services
             //throw new NotImplementedException();
             if (user!=null)
             {
+                
                 User newUser = new User();
                 newUser.Id = user.Id;
                 newUser.Username = user.Username;
                 newUser.Password = user.Password;
-                newUser.Salt = user.Salt;
+                //newUser.Salt = /*user.Salt*/
+                //newUser.HashPassword = 
                 //newUser.Operations
                 db.User.Add(newUser);
                 db.SaveChanges();
@@ -35,6 +39,7 @@ namespace UserDataLib.Services
             }
             
         }
+        
 
         public void CreateUser(String UserId, String UserPassword, String Role)
         {

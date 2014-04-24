@@ -47,7 +47,7 @@ namespace ManagerApp.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Username,Password,Salt")] User user)
+        public ActionResult Create([Bind(Include="Id,Username,Password")] User user)
         {            
             if (ModelState.IsValid)
             {
@@ -74,7 +74,7 @@ namespace ManagerApp.Controllers
             return View(user);
         }
       
-        .
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include="Id,Username,Password,Salt")] User user)

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿/*using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ManagerApp.Models
 {
@@ -14,4 +14,4 @@ namespace ManagerApp.Models
         {
         }
     }
-}
+}*/

@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/*using System.ComponentModel.DataAnnotations;
 
 namespace ManagerApp.Models
 {
@@ -61,3 +61,4 @@ namespace ManagerApp.Models
         public string ConfirmPassword { get; set; }
     }
 }
+*/

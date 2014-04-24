@@ -10,7 +10,7 @@ namespace ManagerApp.Models
     public class ManagerContext : LibContext
     {
         public ManagerContext()
-            : base("DefaultConnection")
+            : base("Entities")
         {
 
         }

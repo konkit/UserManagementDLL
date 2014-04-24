@@ -9,16 +9,16 @@ namespace UserDataLib.Models
 {
     public class LibContext : DbContext
     {
-        public LibContext()
-        {
-
-        }
+       
         public LibContext(String connectionString)
             : base(connectionString)
         {
 
         }
+        public LibContext()
+        {
 
+        }
         public DbSet<User> User { get; set; }
         public DbSet<Operation> Operation { get; set; }
         public DbSet<OperationGroup> OperationGroup { get; set; }
