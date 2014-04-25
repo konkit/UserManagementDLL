@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UserDataLib.Models;
 using System.Security.Cryptography;
 using System.Globalization;
+using System.Data.Entity;
 
 
 namespace UserDataLib.Services
@@ -13,7 +14,12 @@ namespace UserDataLib.Services
     public class UserManager
     {
         private const byte SaltValueSize = 24;
-        private LibContext db = new LibContext();
+        private LibContext db;
+
+        public UserManager(DbContext db)
+        {
+            this.db = (LibContext) db;
+        }
 
         public List<User> DisplayUser()
         {

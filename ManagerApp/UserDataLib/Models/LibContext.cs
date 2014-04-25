@@ -15,10 +15,7 @@ namespace UserDataLib.Models
         {
 
         }
-        public LibContext()
-        {
-
-        }
+       
         public DbSet<User> User { get; set; }
         public DbSet<Operation> Operation { get; set; }
         public DbSet<OperationGroup> OperationGroup { get; set; }

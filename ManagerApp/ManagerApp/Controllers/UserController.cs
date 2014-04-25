@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ManagerApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,7 +14,7 @@ namespace ManagerApp.Controllers
 {
     public class UserController : Controller
     {
-        private UserManager um = new UserManager();
+        private UserManager um = new UserManager(new ManagerContext());
        
      
         public ActionResult Index()
