@@ -32,22 +32,46 @@ namespace UserDataLib.Services
             return db.User.ToList();
         }
 
+        public bool LoginUserIsValid(User user)
+        {
+            if(user !=null)
+            {
+                var query = (from u in db.User
+                             where u.Username == user.Username && u.Password==user.Password
+                             select u).FirstOrDefault();
+                
+                if(query==null)
+                {
+                    return false;
+                }
+                else
+                {
+                    if(ValidatePassword(user.Password, CreateHash(query.Password, query.Salt)))
+                    {
+                        return true;
+                    }                    
+                }
+            }
+            return false;
+        }
+
         public void CreateUser(User user)
         {
-            //throw new NotImplementedException();
+           
             if (user!=null)
             {
                 
                 User newUser = new User();
                 newUser.Id = user.Id;
                 newUser.Username = user.Username;
+                newUser.Salt = CreateSalt();
                 newUser.Password = user.Password;
-                newUser.Salt = CreateHash(user.Password,null);
-                //newUser.HashPassword = 
+                newUser.ConfirmPassword = user.ConfirmPassword;                
+                
                 //newUser.Operations
                 db.User.Add(newUser);
                 db.SaveChanges();
-
+                
             }
             
         }
@@ -59,6 +83,7 @@ namespace UserDataLib.Services
             csprng.GetBytes(salt);
             return Encoding.UTF8.GetString(salt);
         }
+
         public static bool ValidatePassword(string password, string correctHash)
         {
             char[] delimiter = { ':' };
@@ -103,6 +128,7 @@ namespace UserDataLib.Services
             byte[] hash = PBKDF2(password, saltByte, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
             return PBKDF2_ITERATIONS + ":" + Convert.ToBase64String(saltByte) + ":" + Convert.ToBase64String(hash);
         }
+
         public void CreateUser(String UserId, String UserPassword, String Role)
         {
             throw new NotImplementedException();

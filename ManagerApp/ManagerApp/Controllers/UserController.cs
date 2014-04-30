@@ -7,11 +7,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using UserDataLib.Models;
 using UserDataLib.Services;
 
 namespace ManagerApp.Controllers
 {
+    
     public class UserController : Controller
     {
         private UserManager um = new UserManager(new ManagerContext());
@@ -38,8 +40,41 @@ namespace ManagerApp.Controllers
             }
             return View(user);
         }
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
 
-        
+        [HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        public virtual ActionResult Login(User user)
+        {            
+            if(ModelState.IsValid)
+            {
+                bool isValid = um.LoginUserIsValid(user);
+                if(isValid)
+                {
+                    
+                    FormsAuthentication.SetAuthCookie(user.Username, false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Login data is incorrect!");
+                }
+                
+            }
+            return View(user);
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult Create()
         {
             return View();
@@ -48,13 +83,21 @@ namespace ManagerApp.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Username,Password")] User user)
+        public ActionResult Create([Bind(Include = "Id,Username,Password,ConfirmPassword")] User user)
         {            
             if (ModelState.IsValid)
             {
-                //UserMenager.cs
-                um.CreateUser(user);                
-                return RedirectToAction("Index");
+                if(user.Password==user.ConfirmPassword)
+                {
+                    //UserMenager.cs
+                    um.CreateUser(user);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Login data is incorrect! (Password)");
+                }
+                
             }
             return View(user);
         }
