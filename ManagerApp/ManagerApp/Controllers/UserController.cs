@@ -47,9 +47,9 @@ namespace ManagerApp.Controllers
         }
 
         [HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        public virtual ActionResult Login(User user)
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult Login(LoginViewModel user)
         {            
             if(ModelState.IsValid)
             {
@@ -83,22 +83,21 @@ namespace ManagerApp.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Username,Password,ConfirmPassword")] User user)
+        public ActionResult Create([Bind(Include = "Id,Username,Password,ConfirmPassword")] RegisterViewModel user)
         {            
             if (ModelState.IsValid)
-            {
-                if(user.Password==user.ConfirmPassword)
+            {   
+                if(!(um.UserNameIsNoExists(user)))
+                {
+                    ModelState.AddModelError("", "The data is incorrect or the user with the specified name already exists in the database!");
+                }
+                else
                 {
                     //UserMenager.cs
                     um.CreateUser(user);
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Login data is incorrect! (Password)");
-                }
-                
-            }
+            } 
             return View(user);
         }
 

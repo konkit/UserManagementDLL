@@ -12,6 +12,8 @@ namespace UserDataLib.Services
 {
     public class UserManager
     {
+        private static int temp_id;
+
         private const int SALT_BYTE_SIZE = 24;
         private const int HASH_BYTE_SIZE = 24;
         private const int PBKDF2_ITERATIONS = 1000;
@@ -32,7 +34,7 @@ namespace UserDataLib.Services
             return db.User.ToList();
         }
 
-        public bool LoginUserIsValid(User user)
+        public bool LoginUserIsValid(LoginViewModel user)
         {
             if(user !=null)
             {
@@ -48,6 +50,7 @@ namespace UserDataLib.Services
                 {
                     if(ValidatePassword(user.Password, CreateHash(query.Password, query.Salt)))
                     {
+                        temp_id = query.Id;
                         return true;
                     }                    
                 }
@@ -55,7 +58,25 @@ namespace UserDataLib.Services
             return false;
         }
 
-        public void CreateUser(User user)
+        public bool UserNameIsNoExists(RegisterViewModel user)
+        {
+            if(user!=null)
+            {
+                var query = (from u in db.User
+                             where u.Username == user.Username
+                             select u).FirstOrDefault();
+                if(query==null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+        public void CreateUser(RegisterViewModel user)
         {
            
             if (user!=null)
@@ -65,8 +86,7 @@ namespace UserDataLib.Services
                 newUser.Id = user.Id;
                 newUser.Username = user.Username;
                 newUser.Salt = CreateSalt();
-                newUser.Password = user.Password;
-                newUser.ConfirmPassword = user.ConfirmPassword;                
+                newUser.Password = user.Password;               
                 
                 //newUser.Operations
                 db.User.Add(newUser);
@@ -159,6 +179,11 @@ namespace UserDataLib.Services
                 db.Dispose();
             }
             
+        }
+
+        public static int getId()
+        {
+            return temp_id;
         }
     }
 }
