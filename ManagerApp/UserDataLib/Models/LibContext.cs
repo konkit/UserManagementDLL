@@ -9,7 +9,11 @@ namespace UserDataLib.Models
 {
     public class LibContext : DbContext
     {
-       
+        public LibContext()            
+        {
+
+        }
+
         public LibContext(String connectionString)
             : base(connectionString)
         {

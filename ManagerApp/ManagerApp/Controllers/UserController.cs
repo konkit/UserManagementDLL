@@ -21,6 +21,7 @@ namespace ManagerApp.Controllers
      
         public ActionResult Index()
         {
+            
             //UserMenager.cs
             return View(um.DisplayUser());
         }

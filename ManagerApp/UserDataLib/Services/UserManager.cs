@@ -87,7 +87,7 @@ namespace UserDataLib.Services
                 newUser.Username = user.Username;
                 newUser.Salt = CreateSalt();
                 newUser.Password = user.Password;               
-                
+                //newUser.Operations
                 //newUser.Operations
                 db.User.Add(newUser);
                 db.SaveChanges();

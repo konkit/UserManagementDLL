@@ -1,13 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserDataLib.Models;
 
 namespace UserDataLib.Services
 {
-    class OperationManager
+    public class OperationManager
     {
-        //todo
+        private LibContext db;
+
+        public OperationManager(DbContext db)
+        {
+            this.db = (LibContext) db;
+        }
+
+        public List<Operation> DisplayOperation()
+        {
+            return db.Operation.ToList();
+        }
+
+        public void CreateOperation(Operation operation)
+        {
+            if(operation != null)
+            {
+                db.Operation.Add(operation);
+                db.SaveChanges();
+            }            
+        }
     }
 }

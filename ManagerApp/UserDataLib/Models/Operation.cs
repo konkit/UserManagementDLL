@@ -14,6 +14,7 @@ namespace UserDataLib.Models
             //Users = new List<UserHasOperation>();
             //OperationGroups = new List<OperationGroupHasOperation>();
         }
+
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
