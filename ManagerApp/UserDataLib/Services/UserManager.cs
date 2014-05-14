@@ -31,6 +31,7 @@ namespace UserDataLib.Services
 
         public List<User> DisplayUser()
         {
+            string a = System.Reflection.MethodBase.GetCurrentMethod().Name;
             return db.User.ToList();
         }
 
@@ -39,21 +40,21 @@ namespace UserDataLib.Services
             if(user !=null)
             {
                 var query = (from u in db.User
-                             where u.Username == user.Username && u.Password==user.Password
+                             where u.Username == user.Username
                              select u).FirstOrDefault();
-                
-                if(query==null)
+
+                if (query == null)
                 {
-                    return false;
-                }
-                else
-                {
-                    if(ValidatePassword(user.Password, CreateHash(query.Password, query.Salt)))
+                    if (ValidatePassword(user.Password, CreateHash(query.Password, query.Salt)))
                     {
-                        temp_id = query.Id;
+                        
                         return true;
-                    }                    
-                }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }    
             }
             return false;
         }
