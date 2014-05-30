@@ -28,7 +28,7 @@ namespace ManagerApp.Controllers
             return View(um.DisplayUser());
         }
       
-        
+        [UsersAuthorize("test")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -61,7 +61,7 @@ namespace ManagerApp.Controllers
             if(ModelState.IsValid)
             {
                 bool isValid = um.LoginUserIsValid(user);
-                if(isValid)
+                if(isValid)     // TU W OGOLE NIE WCHODZI
                 {
                     var modelUser = um.getUser(user.Username, user.Password);
                     var operations = modelUser.Operations.Select(m => m.Name).ToArray();
