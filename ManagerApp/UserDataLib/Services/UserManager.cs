@@ -12,7 +12,7 @@ namespace UserDataLib.Services
 {
     public class UserManager
     {
-        private static int temp_id;
+        private static User userValue;
 
         private const int SALT_BYTE_SIZE = 24;
         private const int HASH_BYTE_SIZE = 24;
@@ -43,11 +43,11 @@ namespace UserDataLib.Services
                              where u.Username == user.Username
                              select u).FirstOrDefault();
 
-                if (query == null)
+                if (query != null)
                 {
                     if (ValidatePassword(user.Password, CreateHash(query.Password, query.Salt)))
                     {
-                        
+                        userValue = query;
                         return true;
                     }
                     else
@@ -79,7 +79,7 @@ namespace UserDataLib.Services
         }
         public void CreateUser(RegisterViewModel user)
         {
-           
+            
             if (user!=null)
             {
                 
@@ -87,8 +87,9 @@ namespace UserDataLib.Services
                 newUser.Id = user.Id;
                 newUser.Username = user.Username;
                 newUser.Salt = CreateSalt();
-                newUser.Password = user.Password;               
-                //newUser.Operations
+                newUser.Password = user.Password;
+               
+                //newUser.Operations.Add(new Operation(){Name = "AAA",   })
                 //newUser.Operations
                 db.User.Add(newUser);
                 db.SaveChanges();
@@ -182,9 +183,13 @@ namespace UserDataLib.Services
             
         }
 
-        public static int getId()
+        public User getId()
         {
-            return temp_id;
+            return userValue;
+        }
+        public ICollection<Operation> getOperation()
+        {
+            return userValue.Operations;
         }
     }
 }

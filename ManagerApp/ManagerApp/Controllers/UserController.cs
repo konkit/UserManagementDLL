@@ -39,6 +39,10 @@ namespace ManagerApp.Controllers
             {
                 return HttpNotFound();
             }
+            if (user.Id != int.Parse(Session["userId"].ToString()))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             return View(user);
         }
         [HttpGet]
@@ -51,23 +55,26 @@ namespace ManagerApp.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public virtual ActionResult Login(LoginViewModel user)
-        {            
+        {      
+            
             if(ModelState.IsValid)
             {
                 bool isValid = um.LoginUserIsValid(user);
                 if(isValid)
                 {
                     
-                    FormsAuthentication.SetAuthCookie(user.Username, false);
+                    
+                    FormsAuthentication.SetAuthCookie(user.Username, true);
+                   
                     return RedirectToAction("Index", "Home");
-                }
+                }   
                 else
                 {
                     ModelState.AddModelError("", "Login data is incorrect!");
                 }
                 
             }
-            return View(user);
+            return View();
         }
 
         public ActionResult Logout()
@@ -94,6 +101,8 @@ namespace ManagerApp.Controllers
                 }
                 else
                 {
+                    
+                    
                     //UserMenager.cs
                     um.CreateUser(user);
                     return RedirectToAction("Index", "Home");
