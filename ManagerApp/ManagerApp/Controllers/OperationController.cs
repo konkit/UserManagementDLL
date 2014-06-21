@@ -22,21 +22,21 @@ namespace ManagerApp.Controllers
             return View(om.DisplayOperation());
         }
 
-       // // GET: /Operation/Details/5
-       // public ActionResult Details(int? id)
-       // {
-       //     if (id == null)
-       //     {
-       //         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-       //     }
-       //     Operation operation = db.Operation.Find(id);
-       //     if (operation == null)
-       //     {
-       //         return HttpNotFound();
-       //     }
-       //     return View(operation);
-       // }
-       //
+        // GET: /Operation/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Operation operation = om.FindOperation(id);
+            if (operation == null)
+            {
+                return HttpNotFound();
+            }
+            return View(operation);
+        }
+       
         // GET: /Operation/Create
         public ActionResult Create()
         {
@@ -91,19 +91,19 @@ namespace ManagerApp.Controllers
        // }
        //
        // // GET: /Operation/Delete/5
-       // public ActionResult Delete(int? id)
-       // {
-       //     if (id == null)
-       //     {
-       //         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-       //     }
-       //     Operation operation = db.Operation.Find(id);
-       //     if (operation == null)
-       //     {
-       //         return HttpNotFound();
-       //     }
-       //     return View(operation);
-       // }
+         public ActionResult Delete(int? id)
+         {
+             if (id == null)
+             {
+                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+             }
+             Operation operation = om.FindOperation(id);
+             if (operation == null)
+             {
+                 return HttpNotFound();
+             }
+             return View(operation);
+         }
        //
        // // POST: /Operation/Delete/5
        // [HttpPost, ActionName("Delete")]

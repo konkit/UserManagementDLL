@@ -30,5 +30,9 @@ namespace UserDataLib.Services
                 db.SaveChanges();
             }            
         }
+        public Operation FindOperation(int? id)
+        {
+            return db.Operation.Find(id);
+        }
     }
 }

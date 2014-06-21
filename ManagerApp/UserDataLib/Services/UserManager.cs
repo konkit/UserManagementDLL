@@ -81,14 +81,12 @@ namespace UserDataLib.Services
         {
             
             if (user!=null)
-            {
-                
+            {    
                 User newUser = new User();
                 newUser.Id = user.Id;
                 newUser.Username = user.Username;
                 newUser.Salt = CreateSalt();
                 newUser.Password = user.Password;
-               
                 //newUser.Operations.Add(new Operation(){Name = "AAA",   })
                 //newUser.Operations
                 db.User.Add(newUser);
@@ -96,8 +94,8 @@ namespace UserDataLib.Services
                 
             }
             
-        }
-        
+        }   
+
         public static string CreateSalt()
         {
             RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider();
@@ -149,12 +147,7 @@ namespace UserDataLib.Services
             
             byte[] hash = PBKDF2(password, saltByte, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
             return PBKDF2_ITERATIONS + ":" + Convert.ToBase64String(saltByte) + ":" + Convert.ToBase64String(hash);
-        }
-
-        public void CreateUser(String UserId, String UserPassword, String Role)
-        {
-            throw new NotImplementedException();
-        }
+        }       
 
         public User Find(int? id)
         {
@@ -179,8 +172,7 @@ namespace UserDataLib.Services
             if (disposing)
             {
                 db.Dispose();
-            }
-            
+            }            
         }
 
         public User getId()
