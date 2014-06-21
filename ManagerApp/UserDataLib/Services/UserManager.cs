@@ -79,7 +79,7 @@ namespace UserDataLib.Services
         }
         public void CreateUser(RegisterViewModel user)
         {
-            
+            Operation oper = new Operation() { Name = "User" };
             if (user!=null)
             {    
                 User newUser = new User();
@@ -87,8 +87,10 @@ namespace UserDataLib.Services
                 newUser.Username = user.Username;
                 newUser.Salt = CreateSalt();
                 newUser.Password = user.Password;
-                //newUser.Operations.Add(new Operation(){Name = "AAA",   })
-                //newUser.Operations
+
+                newUser.Operations = new List<Operation>();
+                newUser.Operations.Add(oper);
+                
                 db.User.Add(newUser);
                 db.SaveChanges();
                 
