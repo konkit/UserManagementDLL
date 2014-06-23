@@ -1,4 +1,5 @@
 ﻿using ManagerApp.Models;
+using ManagerApp.Security;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +13,7 @@ using UserDataLib.Services;
 
 namespace ManagerApp.Controllers
 {
+    [CustomAuthorize(Roles = "admin")]
     public class OperationController : Controller
     {
         private OperationManager om = new OperationManager(new ManagerContext());

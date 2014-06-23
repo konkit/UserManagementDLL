@@ -79,7 +79,7 @@ namespace UserDataLib.Services
         }
         public void CreateUser(RegisterViewModel user)
         {
-            Operation oper = new Operation() { Name = "User" };
+            Operation oper = db.Operation.Where(m => m.Id == 2).FirstOrDefault();
             if (user!=null)
             {    
                 User newUser = new User();
@@ -90,6 +90,7 @@ namespace UserDataLib.Services
 
                 newUser.Operations = new List<Operation>();
                 newUser.Operations.Add(oper);
+                
                 
                 db.User.Add(newUser);
                 db.SaveChanges();
@@ -176,7 +177,7 @@ namespace UserDataLib.Services
                 db.Dispose();
             }            
         }
-
+        #region optional function
         public User getId()
         {
             return userValue;
@@ -184,6 +185,19 @@ namespace UserDataLib.Services
         public ICollection<Operation> getOperation()
         {
             return userValue.Operations;
+        }
+        #endregion
+
+        public User getUser(string username, string password)
+        {
+            var user = db.User.FirstOrDefault(x => x.Username == username);
+
+            if (user == null || user.Password != password)
+            {
+                throw new Exception("Invalid password");
+            }
+
+            return user;
         }
     }
 }

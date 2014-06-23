@@ -1,4 +1,6 @@
 ﻿using ManagerApp.Models;
+using ManagerApp.Security;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,11 +16,11 @@ using UserDataLib.Services;
 namespace ManagerApp.Controllers
 {
     
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private UserManager um = new UserManager(new ManagerContext());
        
-     
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Index()
         {
             
@@ -39,10 +41,10 @@ namespace ManagerApp.Controllers
             {
                 return HttpNotFound();
             }
-            if (user.Id != int.Parse(Session["userId"].ToString()))
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (user.Id != int.Parse(Session["userId"].ToString()))
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             return View(user);
         }
         [HttpGet]
@@ -52,9 +54,8 @@ namespace ManagerApp.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public virtual ActionResult Login(LoginViewModel user)
+        
+        public virtual ActionResult Login(LoginViewModel user,  string returnUrl = "")
         {      
             
             if(ModelState.IsValid)
@@ -62,9 +63,32 @@ namespace ManagerApp.Controllers
                 bool isValid = um.LoginUserIsValid(user);
                 if(isValid)
                 {
+                    var modelUser = um.getUser(user.Username, user.Password);
+                    var operations = modelUser.Operations.Select(m => m.Name).ToArray();
                     
+                    CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
+                    serializeModel.UserId = modelUser.Id;
+                    serializeModel.Username = modelUser.Username;
+                    serializeModel.operations = operations;
                     
-                    FormsAuthentication.SetAuthCookie(user.Username, true);
+                    string userData = JsonConvert.SerializeObject(serializeModel);
+                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                             1,
+                             modelUser.Username,
+                             DateTime.Now,
+                             DateTime.Now.AddMinutes(15),
+                             false,
+                             userData);
+                    
+                    string encTicket = FormsAuthentication.Encrypt(authTicket);
+                    HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+                    Response.Cookies.Add(faCookie);
+                    
+                    if (operations.Contains("Admin"))
+                    {
+                        return RedirectToAction("Index", "User");
+                    }
+                    //FormsAuthentication.SetAuthCookie(user.Username, true);
                    
                     return RedirectToAction("Index", "Home");
                 }   

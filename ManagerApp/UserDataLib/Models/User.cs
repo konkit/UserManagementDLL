@@ -29,8 +29,8 @@ namespace UserDataLib.Models
         public string Password { get; set; }        
 
         public string Salt { get; set; }
-        public ICollection<Operation> Operations { get; set; }
-        public ICollection<OperationGroup> OperationGroups { get; set; }
+        public virtual ICollection<Operation> Operations { get; set; }
+        public virtual ICollection<OperationGroup> OperationGroups { get; set; }
     }
 
     public class LoginViewModel

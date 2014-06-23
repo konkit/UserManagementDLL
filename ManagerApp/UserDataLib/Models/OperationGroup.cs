@@ -18,7 +18,7 @@ namespace UserDataLib.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<User> Users { get; set; }
-        public ICollection<Operation> Operations { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Operation> Operations { get; set; }
     }
 }
