@@ -240,7 +240,7 @@
     <Content Include="Views\Operation\Details.cshtml" />
     <Content Include="Views\Operation\Edit.cshtml" />
     <Content Include="Views\Operation\Index.cshtml" />
-    <Content Include="Views\Errorr\index.cshtml" />
+    <Content Include="Views\Errorr\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UserDataLib\UserDataLib.csproj">

@@ -20,7 +20,7 @@ namespace ManagerApp.Controllers
     {
         private UserManager um = new UserManager(new ManagerContext());
        
-        [CustomAuthorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "admin")]
         public ActionResult Index()
         {
             
