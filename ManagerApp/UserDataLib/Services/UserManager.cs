@@ -177,16 +177,7 @@ namespace UserDataLib.Services
                 db.Dispose();
             }            
         }
-        #region optional function
-        public User getId()
-        {
-            return userValue;
-        }
-        public ICollection<Operation> getOperation()
-        {
-            return userValue.Operations;
-        }
-        #endregion
+        
 
         public User getUser(string username, string password)
         {

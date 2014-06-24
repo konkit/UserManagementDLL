@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UserDataLib.Models
 {
@@ -41,8 +39,11 @@ namespace UserDataLib.Models
 
         public String OperationGroupsToString()
         {
-            IEnumerator<OperationGroup> enumerator = OperationGroups.GetEnumerator();
-            String result = "";
+            var collection = OperationGroups.Select(x => x.Name).ToList();
+            return String.Join(", ", collection);
+
+            /*IEnumerator<OperationGroup> enumerator = OperationGroups.GetEnumerator();
+
             while (enumerator.MoveNext())
             {
                 if (result.Length > 0)
@@ -52,7 +53,7 @@ namespace UserDataLib.Models
                 OperationGroup operation = enumerator.Current;
                 result += operation.Name;
             }
-            return result;
+            return result;*/
         }
-    }
+    }    
 }
