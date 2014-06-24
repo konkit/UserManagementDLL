@@ -60,38 +60,37 @@ namespace ManagerApp.Controllers
        
             return View(operation);
         }
-       //
-       // // GET: /Operation/Edit/5
-       // public ActionResult Edit(int? id)
-       // {
-       //     if (id == null)
-       //     {
-       //         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-       //     }
-       //     Operation operation = db.Operation.Find(id);
-       //     if (operation == null)
-       //     {
-       //         return HttpNotFound();
-       //     }
-       //     return View(operation);
-       // }
-       //
-       // // POST: /Operation/Edit/5
-       // // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-       // // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-       // [HttpPost]
-       // [ValidateAntiForgeryToken]
-       // public ActionResult Edit([Bind(Include="Id,Name")] Operation operation)
-       // {
-       //     if (ModelState.IsValid)
-       //     {
-       //         db.Entry(operation).State = EntityState.Modified;
-       //         db.SaveChanges();
-       //         return RedirectToAction("Index");
-       //     }
-       //     return View(operation);
-       // }
-       //
+       
+        // GET: /Operation/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Operation operation = om.FindOperation(id);
+            if (operation == null)
+            {
+                return HttpNotFound();
+            }
+            return View(operation);
+        }
+       
+        // POST: /Operation/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include="Id,Name")] Operation operation)
+        {
+            if (ModelState.IsValid)
+            {
+                om.EditOperation(operation);
+                return RedirectToAction("Index");
+            }
+            return View(operation);
+        }
+       
        // // GET: /Operation/Delete/5
          public ActionResult Delete(int? id)
          {
@@ -106,25 +105,20 @@ namespace ManagerApp.Controllers
              }
              return View(operation);
          }
-       //
-       // // POST: /Operation/Delete/5
-       // [HttpPost, ActionName("Delete")]
-       // [ValidateAntiForgeryToken]
-       // public ActionResult DeleteConfirmed(int id)
-       // {
-       //     Operation operation = db.Operation.Find(id);
-       //     db.Operation.Remove(operation);
-       //     db.SaveChanges();
-       //     return RedirectToAction("Index");
-       // }
-       //
-       // protected override void Dispose(bool disposing)
-       // {
-       //     if (disposing)
-       //     {
-       //         db.Dispose();
-       //     }
-       //     base.Dispose(disposing);
-       // }
+       
+        // POST: /Operation/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            om.DeleteOperation(id);
+            return RedirectToAction("Index");
+        }
+       
+        protected override void Dispose(bool disposing)
+        {
+           om.Dispose(disposing);
+           base.Dispose(disposing);
+        }
     }
 }

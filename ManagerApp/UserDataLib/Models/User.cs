@@ -29,8 +29,43 @@ namespace UserDataLib.Models
         public string Password { get; set; }        
 
         public string Salt { get; set; }
+
+        [Display(Name = "Operations")]
+        [UIHint("Index")]
         public virtual ICollection<Operation> Operations { get; set; }
+        [Display(Name = "Groups of operations")]
         public virtual ICollection<OperationGroup> OperationGroups { get; set; }
+
+        public String OperationsToString()
+        {
+            IEnumerator<Operation> enumerator = Operations.GetEnumerator();
+            String result = "";
+            while (enumerator.MoveNext()) {
+/*                if (result.Length > 0)
+                {
+                    result += ", ";
+                }*/
+                Operation operation = enumerator.Current;
+                result += operation.Name;
+            }
+            return result;
+        }
+
+        public String OperationGroupsToString()
+        {
+            IEnumerator<OperationGroup> enumerator = OperationGroups.GetEnumerator();
+            String result = "";
+            while (enumerator.MoveNext())
+            {
+                if (result.Length > 0)
+                {
+                    result += ", ";
+                }
+                OperationGroup operation = enumerator.Current;
+                result += operation.Name;
+            }
+            return result;
+        }
     }
 
     public class LoginViewModel

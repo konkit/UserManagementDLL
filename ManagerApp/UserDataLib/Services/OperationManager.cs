@@ -34,5 +34,26 @@ namespace UserDataLib.Services
         {
             return db.Operation.Find(id);
         }
+
+        public void EditOperation(Operation operation)
+        {
+            db.Entry(operation).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public void DeleteOperation(int id)
+        {
+            Operation operation = db.Operation.Find(id);
+            db.Operation.Remove(operation);
+            db.SaveChanges();
+        }
+
+        public void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+        }
     }
 }
