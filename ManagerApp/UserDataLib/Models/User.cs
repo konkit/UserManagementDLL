@@ -41,10 +41,10 @@ namespace UserDataLib.Models
             IEnumerator<Operation> enumerator = Operations.GetEnumerator();
             String result = "";
             while (enumerator.MoveNext()) {
-/*                if (result.Length > 0)
+                if (result.Length > 0)
                 {
                     result += ", ";
-                }*/
+                }
                 Operation operation = enumerator.Current;
                 result += operation.Name;
             }

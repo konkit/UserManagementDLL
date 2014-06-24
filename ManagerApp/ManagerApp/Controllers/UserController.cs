@@ -27,8 +27,7 @@ namespace ManagerApp.Controllers
             //UserMenager.cs
             return View(um.DisplayUser());
         }
-      
-        [UsersAuthorize("test")]
+
         public ActionResult Details(int? id)
         {
             if (id == null)
