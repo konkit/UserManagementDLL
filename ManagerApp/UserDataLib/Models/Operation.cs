@@ -20,40 +20,5 @@ namespace UserDataLib.Models
         public virtual ICollection<User> Users { get; set; }
         [Display(Name = "Group of operations")]
         public virtual ICollection<OperationGroup> OperationGroups { get; set; }
-
-        public String UsersToString()
-        {
-            IEnumerator<User> enumerator = Users.GetEnumerator();
-            String result = "";
-            while (enumerator.MoveNext())
-            {
-                 if (result.Length > 0)
-                 {
-                      result += ", ";
-                 }
-                User operation = enumerator.Current;
-                result += operation.Username;
-            }
-            return result;
-        }
-
-        public String OperationGroupsToString()
-        {
-            var collection = OperationGroups.Select(x => x.Name).ToList();
-            return String.Join(", ", collection);
-
-            /*IEnumerator<OperationGroup> enumerator = OperationGroups.GetEnumerator();
-
-            while (enumerator.MoveNext())
-            {
-                if (result.Length > 0)
-                {
-                    result += ", ";
-                }
-                OperationGroup operation = enumerator.Current;
-                result += operation.Name;
-            }
-            return result;*/
-        }
     }    
 }

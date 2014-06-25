@@ -31,10 +31,17 @@
                 @Html.DisplayFor(modelItem => item.Username)
             </td>
             <td>
-                @Html.Name(item.OperationGroupsToString())
+                @{
+                    var collectionGroup = item.OperationGroups.Select(x => x.Name).ToList();
+                    @Html.Name(String.Join(", ", collectionGroup));
+                }
+                
             </td>
             <td>
-                @Html.Name(item.OperationsToString());
+                @{
+                    var collectionOperations = item.Operations.Select(x => x.Name).ToList();
+                    @Html.Name(String.Join(", ", collectionOperations));
+                }
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -46,6 +46,30 @@ namespace ManagerApp.Controllers
             //}
             return View(user);
         }
+
+        public ActionResult AddOperation(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            UserOperations operations = new UserOperations { UserId = (int)id };
+            return View(operations);
+        }
+
+
+        [HttpPost]
+        public ActionResult AddOperation(UserOperations model)
+        {
+            if (ModelState.IsValid)
+            {
+                um.AddOperation(model.UserId, model.OperationId);
+
+                return RedirectToAction("Details", new User { Id = model.UserId });
+            }
+            return View(model);
+        }
+
         [HttpGet]
         public ActionResult Login()
         {

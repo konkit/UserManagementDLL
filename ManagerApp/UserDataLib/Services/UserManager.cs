@@ -163,6 +163,18 @@ namespace UserDataLib.Services
             db.SaveChanges();
         }
 
+        public void AddOperation(int idUser, int idOperation)
+        {
+            User user = Find(idUser);
+            Operation oper = db.Operation.Where(m => m.Id == idOperation).FirstOrDefault();
+            if (user != null)
+            {
+                user.Operations.Add(oper);
+                db.SaveChanges();
+
+            }
+        }
+
         public void DeleteUser(int id)
         {
             User user = db.User.Find(id);

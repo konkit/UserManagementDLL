@@ -38,6 +38,8 @@ namespace ManagerApp.Controllers
             }
             return View(operation);
         }
+
+        
        
         // GET: /Operation/Create
         public ActionResult Create()
