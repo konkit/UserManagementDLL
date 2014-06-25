@@ -247,6 +247,7 @@
     <Content Include="Views\OperationGroups\Edit.cshtml" />
     <Content Include="Views\OperationGroups\Index.cshtml" />
     <Content Include="Views\User\AddOperation.cshtml" />
+    <Content Include="Views\User\DeleteOperation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UserDataLib\UserDataLib.csproj">

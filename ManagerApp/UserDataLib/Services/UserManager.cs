@@ -175,6 +175,18 @@ namespace UserDataLib.Services
             }
         }
 
+        public void DeleteOperation(int idUser, int idOperation)
+        {
+            User user = Find(idUser);
+            Operation oper = db.Operation.Where(m => m.Id == idOperation).FirstOrDefault();
+            if (user != null)
+            {
+                user.Operations.Remove(oper);
+                db.SaveChanges();
+
+            }
+        }
+
         public void DeleteUser(int id)
         {
             User user = db.User.Find(id);
