@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace UserDataLib.Models
 {
-    public class UserOperations
+    public class Operations
     {
-        public UserOperations()
+        public Operations()
         {
-            Operations = new List<Operation>();
+            OperationsList = new List<Operation>();
         }
 
         [Required]
         public int OperationId { get; set; }
         
         [Key]
-        public int UserId { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Operations")]
-        public List<Operation> Operations { get; set; }
+        public List<Operation> OperationsList { get; set; }
     }
 }

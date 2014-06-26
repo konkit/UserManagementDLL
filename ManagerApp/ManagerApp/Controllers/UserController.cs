@@ -53,19 +53,19 @@ namespace ManagerApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserOperations operations = new UserOperations { UserId = (int)id };
+            Operations operations = new Operations { Id = (int)id };
             return View(operations);
         }
 
 
         [HttpPost]
-        public ActionResult AddOperation(UserOperations model)
+        public ActionResult AddOperation(Operations model)
         {
             if (ModelState.IsValid)
             {
-                um.AddOperation(model.UserId, model.OperationId);
+                um.AddOperation(model.Id, model.OperationId);
 
-                return RedirectToAction("Details", new User { Id = model.UserId });
+                return RedirectToAction("Details", new { Id = model.Id });
             }
             return View(model);
         }
@@ -76,19 +76,65 @@ namespace ManagerApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserOperations operations = new UserOperations { UserId = (int)id };
+            Operations operations = new Operations { Id = (int)id };
             return View(operations);
         }
 
 
         [HttpPost]
-        public ActionResult DeleteOperation(UserOperations model)
+        public ActionResult DeleteOperation(Operations model)
         {
             if (ModelState.IsValid)
             {
-                um.DeleteOperation(model.UserId, model.OperationId);
+                um.DeleteOperation(model.Id, model.OperationId);
 
-                return RedirectToAction("Details", new User { Id = model.UserId });
+                return RedirectToAction("Details", new { Id = model.Id });
+            }
+            return View(model);
+        }
+
+        public ActionResult AddGroup(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Groups Groups = new Groups { Id = (int)id };
+            return View(Groups);
+        }
+
+
+        [HttpPost]
+        public ActionResult AddGroup(Groups model)
+        {
+            if (ModelState.IsValid)
+            {
+                um.AddGroup(model.Id, model.GroupId);
+
+                return RedirectToAction("Details", new { Id = model.Id });
+            }
+            return View(model);
+        }
+
+        public ActionResult DeleteGroup(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Groups Groups = new Groups { Id = (int)id };
+            return View(Groups);
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteGroup(Groups model)
+        {
+            if (ModelState.IsValid)
+            {
+                um.DeleteGroup(model.Id, model.GroupId);
+
+                return RedirectToAction("Details", new { Id = model.Id });
             }
             return View(model);
         }

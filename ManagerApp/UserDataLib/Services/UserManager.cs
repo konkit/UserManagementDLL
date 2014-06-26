@@ -187,6 +187,44 @@ namespace UserDataLib.Services
             }
         }
 
+        public void AddGroup(int idUser, int idGroup)
+        {
+            User user = Find(idUser);
+            OperationGroup group = db.OperationGroup.Where(m => m.Id == idGroup).FirstOrDefault();
+            if (user != null)
+            {
+                user.OperationGroups.Add(group);
+                foreach(Operation oper in group.Operations)
+                {
+                    if(!user.Operations.Contains(oper))
+                    {
+                        user.Operations.Add(oper);
+                    }
+                }
+                db.SaveChanges();
+
+            }
+        }
+
+        public void DeleteGroup(int idUser, int idGroup)
+        {
+            User user = Find(idUser);
+            OperationGroup group = db.OperationGroup.Where(m => m.Id == idGroup).FirstOrDefault();
+            if (user != null)
+            {
+                user.OperationGroups.Remove(group);
+                foreach (Operation oper in group.Operations)
+                {
+                    if (user.Operations.Contains(oper))
+                    {
+                        user.Operations.Remove(oper);
+                    }
+                }
+                db.SaveChanges();
+
+            }
+        }
+
         public void DeleteUser(int id)
         {
             User user = db.User.Find(id);

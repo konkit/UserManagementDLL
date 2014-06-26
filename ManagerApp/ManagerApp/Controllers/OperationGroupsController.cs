@@ -36,6 +36,49 @@ namespace ManagerApp.Controllers
             }
             return View(operationGroup);
         }
+
+        public ActionResult AddOperation(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Operations operations = new Operations { Id = (int)id };
+            return View(operations);
+        }
+
+        [HttpPost]
+        public ActionResult AddOperation(Operations model)
+        {
+            if (ModelState.IsValid)
+            {
+                gm.AddOperation(model.Id, model.OperationId);
+                return RedirectToAction("Details", new { Id = model.Id });
+            }
+            return View(model);
+        }
+
+        public ActionResult DeleteOperation(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Operations operations = new Operations { Id = (int)id };
+            return View(operations);
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteOperation(Operations model)
+        {
+            if (ModelState.IsValid)
+            {
+                gm.DeleteOperation(model.Id, model.OperationId);
+                return RedirectToAction("Details", new { Id = model.Id });
+            }
+            return View(model);
+        }
         
         // GET: OperationGroups/Create
         public ActionResult Create()
