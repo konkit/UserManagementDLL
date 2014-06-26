@@ -52,7 +52,16 @@ namespace ManagerApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                gm.AddOperation(model.Id, model.OperationId);
+                Operation NewOperation = gm.AddOperation(model.Id, model.OperationId);
+                List<User> Users = gm.FindGroup(model.Id).Users.ToList();
+                UserManager um = new UserManager(new ManagerContext());
+                foreach(User user in Users)
+                {
+                    if (!user.Operations.Contains(NewOperation))
+                    {
+                        um.AddOperation(user.Id, model.OperationId);
+                    }
+                }
                 return RedirectToAction("Details", new { Id = model.Id });
             }
             return View(model);
@@ -74,7 +83,16 @@ namespace ManagerApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                gm.DeleteOperation(model.Id, model.OperationId);
+                Operation OperationToDelete = gm.DeleteOperation(model.Id, model.OperationId);
+                List<User> Users = gm.FindGroup(model.Id).Users.ToList();
+                UserManager um = new UserManager(new ManagerContext());
+                foreach (User user in Users)
+                {
+                    if (user.Operations.Contains(OperationToDelete))
+                    {
+                        um.DeleteOperation(user.Id, model.OperationId);
+                    }
+                }
                 return RedirectToAction("Details", new { Id = model.Id });
             }
             return View(model);

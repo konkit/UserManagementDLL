@@ -42,7 +42,7 @@ namespace UserDataLib.Services
             db.SaveChanges();
         }
 
-        public void AddOperation(int idGroup, int idOperation)
+        public Operation AddOperation(int idGroup, int idOperation)
         {
             OperationGroup group = FindGroup(idGroup);
             Operation oper = db.Operation.Where(m => m.Id == idOperation).FirstOrDefault();
@@ -52,9 +52,10 @@ namespace UserDataLib.Services
                 db.SaveChanges();
 
             }
+            return oper;
         }
 
-        public void DeleteOperation(int idGroup, int idOperation)
+        public Operation DeleteOperation(int idGroup, int idOperation)
         {
             OperationGroup group = FindGroup(idGroup);
             Operation oper = db.Operation.Where(m => m.Id == idOperation).FirstOrDefault();
@@ -64,6 +65,7 @@ namespace UserDataLib.Services
                 db.SaveChanges();
 
             }
+            return oper;
         }
 
         public void DeleteGroup(int id)
