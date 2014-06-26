@@ -1,4 +1,5 @@
 ﻿using ManagerApp.Models;
+using ManagerApp.Security;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,7 +16,7 @@ namespace ManagerApp.Controllers
     public class OperationGroupsController : BaseController
     {
         private GroupManager gm = new GroupManager(new ManagerContext());
-        
+        [CustomAuthorize(Roles="DisplayGroups")]
         // GET: OperationGroups
         public ActionResult Index()
         {
@@ -36,7 +37,7 @@ namespace ManagerApp.Controllers
             }
             return View(operationGroup);
         }
-        
+        [CustomAuthorize(Roles="CreateGroup")]
         // GET: OperationGroups/Create
         public ActionResult Create()
         {

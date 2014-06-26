@@ -19,8 +19,8 @@ namespace ManagerApp.Controllers
     public class UserController : BaseController
     {
         private UserManager um = new UserManager(new ManagerContext());
-       
-        [CustomAuthorize(Roles = "admin")]
+
+        [CustomAuthorize(Roles = "DisplayUser")]
         public ActionResult Index()
         {
             
@@ -130,7 +130,7 @@ namespace ManagerApp.Controllers
                     HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
                     Response.Cookies.Add(faCookie);
                     
-                    if (operations.Contains("Admin"))
+                    if (operations.Contains("admin"))
                     {
                         return RedirectToAction("Index", "User");
                     }
@@ -152,7 +152,7 @@ namespace ManagerApp.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
-
+        [CustomAuthorize(Roles = "CreateUser")]
         public ActionResult Create()
         {
             return View();
@@ -200,7 +200,7 @@ namespace ManagerApp.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Username,Password,Salt")] User user)
+        public ActionResult Edit([Bind(Include="Id,Username,Password")] User user)
         {
             if (ModelState.IsValid)
             {

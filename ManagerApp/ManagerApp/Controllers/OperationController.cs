@@ -13,11 +13,11 @@ using UserDataLib.Services;
 
 namespace ManagerApp.Controllers
 {
-    [CustomAuthorize(Roles = "admin")]
+    
     public class OperationController : Controller
     {
         private OperationManager om = new OperationManager(new ManagerContext());
-
+        [CustomAuthorize(Roles="DisplayOperation")]
         // GET: /Operation/
         public ActionResult Index()
         {
@@ -39,8 +39,8 @@ namespace ManagerApp.Controllers
             return View(operation);
         }
 
-        
-       
+
+        [CustomAuthorize(Roles = "CreateOperation")]
         // GET: /Operation/Create
         public ActionResult Create()
         {
