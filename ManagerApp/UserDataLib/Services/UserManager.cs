@@ -239,7 +239,10 @@ namespace UserDataLib.Services
                 db.Dispose();
             }            
         }
-        
+        // public User GetUser()
+        //{
+        //    return userValue;
+        //}
 
         public User getUser(string username, string password)
         {

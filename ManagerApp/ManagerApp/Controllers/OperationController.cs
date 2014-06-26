@@ -17,13 +17,13 @@ namespace ManagerApp.Controllers
     public class OperationController : Controller
     {
         private OperationManager om = new OperationManager(new ManagerContext());
-        [CustomAuthorize(Roles="DisplayOperation")]
+        [CustomAuthorize(Roles="DisplayOperations")]
         // GET: /Operation/
         public ActionResult Index()
         {
             return View(om.DisplayOperation());
         }
-
+        [CustomAuthorize(Roles = "ShowDetails")]
         // GET: /Operation/Details/5
         public ActionResult Details(int? id)
         {
@@ -83,6 +83,7 @@ namespace ManagerApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomAuthorize(Roles = "Edit")]
         public ActionResult Edit([Bind(Include="Id,Name")] Operation operation)
         {
             if (ModelState.IsValid)
@@ -111,6 +112,7 @@ namespace ManagerApp.Controllers
         // POST: /Operation/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [CustomAuthorize(Roles = "DeleteObject")]
         public ActionResult DeleteConfirmed(int id)
         {
             om.DeleteOperation(id);

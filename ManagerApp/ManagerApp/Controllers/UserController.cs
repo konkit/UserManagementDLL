@@ -27,7 +27,7 @@ namespace ManagerApp.Controllers
             //UserMenager.cs
             return View(um.DisplayUser());
         }
-
+        [CustomAuthorize(Roles = "ShowDetails")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -227,7 +227,7 @@ namespace ManagerApp.Controllers
             return View(user);
         }
 
-       
+        [CustomAuthorize(Roles = "Edit")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -256,8 +256,8 @@ namespace ManagerApp.Controllers
             }
             return View(user);
         }
-      
-       
+
+        [CustomAuthorize(Roles = "DeleteObject")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
