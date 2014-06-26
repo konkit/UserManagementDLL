@@ -13,7 +13,7 @@
 @using (Html.BeginForm())
 {
     <div class="form-horizontal">
-        <h4>User</h4>
+        <h4>Group</h4>
         @Html.HiddenFor(model => model.Id)
 
         <b>
@@ -26,14 +26,14 @@
                 @{
                     OperationManager om = new OperationManager(new ManagerContext());
                     List<Operation> list = om.DisplayOperation();
-                    List<Operation> userOperations = new UserManager(new ManagerContext()).Find(Model.Id).Operations.ToList();
+                    List<Operation> groupOperations = new GroupManager(new ManagerContext()).FindGroup(Model.Id).Operations.ToList();
 
                     foreach (Operation oper in list)
                     {
                         bool exists = false;
-                        foreach (Operation uoper in userOperations)
+                        foreach (Operation goper in groupOperations)
                         {
-                            if (uoper.Name.Equals(oper.Name))
+                            if (goper.Name.Equals(oper.Name))
                             {
                                 exists = true;
                                 break;

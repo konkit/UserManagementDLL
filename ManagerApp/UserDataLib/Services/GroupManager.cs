@@ -42,6 +42,32 @@ namespace UserDataLib.Services
             db.SaveChanges();
         }
 
+        public Operation AddOperation(int idGroup, int idOperation)
+        {
+            OperationGroup group = FindGroup(idGroup);
+            Operation oper = db.Operation.Where(m => m.Id == idOperation).FirstOrDefault();
+            if (group != null)
+            {
+                group.Operations.Add(oper);
+                db.SaveChanges();
+
+            }
+            return oper;
+        }
+
+        public Operation DeleteOperation(int idGroup, int idOperation)
+        {
+            OperationGroup group = FindGroup(idGroup);
+            Operation oper = db.Operation.Where(m => m.Id == idOperation).FirstOrDefault();
+            if (group != null)
+            {
+                group.Operations.Remove(oper);
+                db.SaveChanges();
+
+            }
+            return oper;
+        }
+
         public void DeleteGroup(int id)
         {
             OperationGroup group = FindGroup(id);

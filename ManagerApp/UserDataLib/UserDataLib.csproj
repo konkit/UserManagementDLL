@@ -46,10 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Groups.cs" />
     <Compile Include="Models\LibContext.cs" />
     <Compile Include="Models\Operation.cs" />
     <Compile Include="Models\OperationGroup.cs" />
-    <Compile Include="Models\UserOperations.cs" />
+    <Compile Include="Models\Operations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\GroupManager.cs" />

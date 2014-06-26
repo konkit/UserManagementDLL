@@ -1,7 +1,7 @@
-﻿@model UserDataLib.Models.Operations
+﻿@model UserDataLib.Models.Groups
 
 @{
-    ViewBag.Title = "DeleteOperation";
+    ViewBag.Title = "DeleteGroup";
 }
 
 @using UserDataLib.Services;
@@ -17,23 +17,23 @@
         @Html.HiddenFor(model => model.Id)
 
         <b>
-            @Html.DisplayNameFor(model => model.OperationsList)
+            @Html.DisplayNameFor(model => model.GroupsList)
         </b>
         <br>
 
         <div class="form-group">
             <div class="col-md-10">
                 @{
-                    Model.OperationsList = new UserManager(new ManagerContext()).Find(Model.Id).Operations.ToList();    
+                    Model.GroupsList = new UserManager(new ManagerContext()).Find(Model.Id).OperationGroups.ToList();    
                 }
-                @Html.DropDownListFor(model => model.OperationId, new SelectList(Model.OperationsList, "id", "name"), "-- Please select an operation --")
-                @Html.ValidationMessageFor(model => model.OperationId)
+                @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.GroupsList, "id", "name"), "-- Please select a group --")
+                @Html.ValidationMessageFor(model => model.GroupId)
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-10">
-                <input type="submit" value="Delete operation" class="btn btn-default" />
+                <input type="submit" value="Delete group" class="btn btn-default" />
             </div>
         </div>
 

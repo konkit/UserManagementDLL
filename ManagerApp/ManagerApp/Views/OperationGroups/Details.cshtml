@@ -4,6 +4,10 @@
     ViewBag.Title = "Details";
 }
 
+@using UserDataLib.Services;
+@using UserDataLib.Models;
+@using ManagerApp.Models;
+
 <h2>Details</h2>
 
 <div>
@@ -18,9 +22,27 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Operations)
+        </dt>
+
+        <dd>
+            @{
+                List<Operation> List = new GroupManager(new ManagerContext()).FindGroup(Model.Id).Operations.ToList();
+                List<string> Names = new List<string>();
+                foreach (Operation oper in List)
+                {
+                    Names.Add(oper.Name.ToString());
+                }
+                @Html.Name(String.Join(", ", Names));
+            }
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit Name", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Add operation", "AddOperation", new { id = Model.Id }) |
+    @Html.ActionLink("Delete operation", "DeleteOperation", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

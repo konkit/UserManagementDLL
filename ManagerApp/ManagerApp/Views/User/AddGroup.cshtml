@@ -1,7 +1,7 @@
-﻿@model UserDataLib.Models.Operations
+﻿@model UserDataLib.Models.Groups
 
 @{
-    ViewBag.Title = "AddOperation";
+    ViewBag.Title = "AddGroup";
 }
 
 @using UserDataLib.Services;
@@ -17,23 +17,23 @@
         @Html.HiddenFor(model => model.Id)
 
         <b>
-            @Html.DisplayNameFor(model => model.OperationsList)
+            @Html.DisplayNameFor(model => model.GroupsList)
         </b>
         <br>
 
         <div class="form-group">
             <div class="col-md-10">
                 @{
-                    OperationManager om = new OperationManager(new ManagerContext());
-                    List<Operation> list = om.DisplayOperation();
-                    List<Operation> userOperations = new UserManager(new ManagerContext()).Find(Model.Id).Operations.ToList();
+                    GroupManager gm = new GroupManager(new ManagerContext());
+                    List<OperationGroup> list = gm.DisplayGropus();
+                    List<OperationGroup> userGroups = new UserManager(new ManagerContext()).Find(Model.Id).OperationGroups.ToList();
 
-                    foreach (Operation oper in list)
+                    foreach (OperationGroup group in list)
                     {
                         bool exists = false;
-                        foreach (Operation uoper in userOperations)
+                        foreach (OperationGroup ugroup in userGroups)
                         {
-                            if (uoper.Name.Equals(oper.Name))
+                            if (ugroup.Name.Equals(group.Name))
                             {
                                 exists = true;
                                 break;
@@ -41,18 +41,18 @@
                         }
                         if (!exists)
                         {
-                            Model.OperationsList.Add(oper);
+                            Model.GroupsList.Add(group);
                         }
                     }
                 }
-                @Html.DropDownListFor(model => model.OperationId, new SelectList(Model.OperationsList, "id", "name"), "-- Please select an operation --")
-                @Html.ValidationMessageFor(model => model.OperationId)
+                @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.GroupsList, "id", "name"), "-- Please select a group --")
+                @Html.ValidationMessageFor(model => model.GroupId)
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-10">
-                <input type="submit" value="Add operation" class="btn btn-default" />
+                <input type="submit" value="Add group" class="btn btn-default" />
             </div>
         </div>
 

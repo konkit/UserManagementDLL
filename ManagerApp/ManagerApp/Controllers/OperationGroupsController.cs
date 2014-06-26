@@ -37,7 +37,68 @@ namespace ManagerApp.Controllers
             }
             return View(operationGroup);
         }
-        [CustomAuthorize(Roles="CreateGroup")]
+        
+        public ActionResult AddOperation(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Operations operations = new Operations { Id = (int)id };
+            return View(operations);
+        }
+
+        [HttpPost]
+        public ActionResult AddOperation(Operations model)
+        {
+            if (ModelState.IsValid)
+            {
+                Operation NewOperation = gm.AddOperation(model.Id, model.OperationId);
+                List<User> Users = gm.FindGroup(model.Id).Users.ToList();
+                UserManager um = new UserManager(new ManagerContext());
+                foreach(User user in Users)
+                {
+                    if (!user.Operations.Contains(NewOperation))
+                    {
+                        um.AddOperation(user.Id, model.OperationId);
+                    }
+                }
+                return RedirectToAction("Details", new { Id = model.Id });
+            }
+            return View(model);
+        }
+
+        public ActionResult DeleteOperation(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Operations operations = new Operations { Id = (int)id };
+            return View(operations);
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteOperation(Operations model)
+        {
+            if (ModelState.IsValid)
+            {
+                Operation OperationToDelete = gm.DeleteOperation(model.Id, model.OperationId);
+                List<User> Users = gm.FindGroup(model.Id).Users.ToList();
+                UserManager um = new UserManager(new ManagerContext());
+                foreach (User user in Users)
+                {
+                    if (user.Operations.Contains(OperationToDelete))
+                    {
+                        um.DeleteOperation(user.Id, model.OperationId);
+                    }
+                }
+                return RedirectToAction("Details", new { Id = model.Id });
+            }
+            return View(model);
+        }
+        
         // GET: OperationGroups/Create
         public ActionResult Create()
         {
