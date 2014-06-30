@@ -7,12 +7,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{620621A1-0AB9-4E2E-BC4E-438189B94495}</ProjectGuid>
+    <ProjectGuid>{CEC3B5E6-DAE8-4FC2-8D1A-5B00E39DDD5F}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ManagerApp</RootNamespace>
-    <AssemblyName>ManagerApp</AssemblyName>
+    <RootNamespace>MarketPlace</RootNamespace>
+    <AssemblyName>MarketPlace</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -163,15 +163,11 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorrController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OperationController.cs" />
-    <Compile Include="Controllers\OperationGroupsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\ManagerContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -218,15 +214,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
@@ -234,21 +221,9 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
-    <Content Include="Views\Operation\Create.cshtml" />
-    <Content Include="Views\Operation\Delete.cshtml" />
-    <Content Include="Views\Operation\Details.cshtml" />
-    <Content Include="Views\Operation\Edit.cshtml" />
-    <Content Include="Views\Operation\Index.cshtml" />
     <Content Include="Views\Errorr\AccessDenied.cshtml" />
-    <Content Include="Views\OperationGroups\Create.cshtml" />
-    <Content Include="Views\OperationGroups\Delete.cshtml" />
-    <Content Include="Views\OperationGroups\Details.cshtml" />
-    <Content Include="Views\OperationGroups\Edit.cshtml" />
-    <Content Include="Views\OperationGroups\Index.cshtml" />
     <Content Include="Views\User\AddOperation.cshtml" />
     <Content Include="Views\User\DeleteOperation.cshtml" />
-    <Content Include="Views\OperationGroups\AddOperation.cshtml" />
-    <Content Include="Views\OperationGroups\DeleteOperation.cshtml" />
     <Content Include="Views\User\AddGroup.cshtml" />
     <Content Include="Views\User\DeleteGroup.cshtml" />
   </ItemGroup>

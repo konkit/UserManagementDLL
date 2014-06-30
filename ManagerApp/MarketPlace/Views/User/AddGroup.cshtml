@@ -1,0 +1,67 @@
+﻿@model UserDataLib.Models.Groups
+
+@{
+    ViewBag.Title = "AddGroup";
+}
+
+@using UserDataLib.Services;
+@using UserDataLib.Models;
+@using MarketPlace.Models;
+
+<h2>Details</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <h4>User</h4>
+        @Html.HiddenFor(model => model.Id)
+
+        <b>
+            @Html.DisplayNameFor(model => model.GroupsList)
+        </b>
+        <br>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @{
+                    GroupManager gm = new GroupManager(new ManagerContext());
+                    List<OperationGroup> list = gm.DisplayGropus();
+                    List<OperationGroup> userGroups = new UserManager(new ManagerContext()).Find(Model.Id).OperationGroups.ToList();
+
+                    foreach (OperationGroup group in list)
+                    {
+                        bool exists = false;
+                        foreach (OperationGroup ugroup in userGroups)
+                        {
+                            if (ugroup.Name.Equals(group.Name))
+                            {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if (!exists)
+                        {
+                            Model.GroupsList.Add(group);
+                        }
+                    }
+                }
+                @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.GroupsList, "id", "name"), "-- Please select a group --")
+                @Html.ValidationMessageFor(model => model.GroupId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Add group" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+}
+    <p>
+        @Html.ActionLink("Back", "Details", new { id = Model.Id })
+    </p>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
