@@ -251,6 +251,8 @@
     <Content Include="Views\OperationGroups\DeleteOperation.cshtml" />
     <Content Include="Views\User\AddGroup.cshtml" />
     <Content Include="Views\User\DeleteGroup.cshtml" />
+    <Content Include="Views\OperationGroups\AddUser.cshtml" />
+    <Content Include="Views\User\Activation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UserDataLib\UserDataLib.csproj">

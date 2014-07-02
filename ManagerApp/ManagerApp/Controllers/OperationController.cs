@@ -52,7 +52,7 @@ namespace ManagerApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateOperation([Bind(Include="Id,Name")] Operation operation)
+        public ActionResult CreateOperation([Bind(Include = "Id,Name,Description")] Operation operation)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace ManagerApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomAuthorize(Roles = "Edit")]
-        public ActionResult Edit([Bind(Include="Id,Name")] Operation operation)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description")] Operation operation)
         {
             if (ModelState.IsValid)
             {

@@ -21,6 +21,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Operations)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
         <th></th>
     </tr>
 
@@ -43,7 +46,21 @@
                     @Html.Name(String.Join(", ", collectionOperations));
                 }
             </td>
-            <td>               
+            <td>
+                @{
+                    var active = item.IsActive;
+                    if(active ==true)
+                    {
+                        @Html.Name("active")
+                    }
+                    else
+                    {
+                        @Html.Name("inactive")
+                    }
+                }
+            </td>
+            <td> 
+                @Html.ActionLink("Activation", "Activation", new { id = item.Id }) |              
                 @Html.ActionLink("Edit Credentials", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id=item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id=item.Id })

@@ -46,6 +46,25 @@ namespace ManagerApp.Controllers
             //}
             return View(user);
         }
+        public ActionResult Activation(int? id)
+        {
+            if(id==null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = um.Find(id);
+            return View(user);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Activation([Bind(Include = "Id,Username,Password,data")] User model)
+        {
+            
+            
+                um.ChangeActivation(model);
+                return RedirectToAction("Details", new { Id = model.Id });
+            
+        }
 
         public ActionResult AddOperation(int? id)
         {
@@ -150,10 +169,10 @@ namespace ManagerApp.Controllers
         public virtual ActionResult Login(LoginViewModel user,  string returnUrl = "")
         {      
             
-            if(ModelState.IsValid)
+            if(ModelState.IsValid && um.ChangeActiveAccount(user))
             {
                 bool isValid = um.LoginUserIsValid(user);
-                if(isValid)     // TU W OGOLE NIE WCHODZI
+                if(isValid)     
                 {
                     var modelUser = um.getUser(user.Username, user.Password);
                     var operations = modelUser.Operations.Select(m => m.Name).ToArray();
@@ -186,10 +205,12 @@ namespace ManagerApp.Controllers
                 }   
                 else
                 {
-                    ModelState.AddModelError("", "Login data is incorrect!");
+                    ModelState.AddModelError("", "Login data is incorrect! ");
                 }
                 
             }
+            else
+                ModelState.AddModelError("", "Your account is not active!");
             return View();
         }
 
@@ -216,9 +237,7 @@ namespace ManagerApp.Controllers
                     ModelState.AddModelError("", "The data is incorrect or the user with the specified name already exists in the database!");
                 }
                 else
-                {
-                    
-                    
+                {                   
                     //UserMenager.cs
                     um.CreateUser(user);
                     return RedirectToAction("Index", "Home");

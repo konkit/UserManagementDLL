@@ -37,6 +37,25 @@ namespace ManagerApp.Controllers
             }
             return View(operationGroup);
         }
+        public ActionResult AddUser(int? id)
+        {
+            if(id ==null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User users = new User { Id = (int)id };
+            return View(users);
+        }
+
+        [HttpPost]
+        public ActionResult AddUser(User user)
+        {
+            if(ModelState.IsValid)
+            {
+                //User newUser = gm.add
+            }
+            return View();
+        }
         
         public ActionResult AddOperation(int? id)
         {

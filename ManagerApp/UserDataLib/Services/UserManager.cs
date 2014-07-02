@@ -77,6 +77,18 @@ namespace UserDataLib.Services
             }
             return false;
         }
+        public bool ChangeActiveAccount(LoginViewModel user)
+        {
+            var model = db.User.FirstOrDefault(x => x.Username == user.Username);
+            if(model.data<DateTime.UtcNow)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         public void CreateUser(RegisterViewModel user)
         {
             Operation oper = db.Operation.Where(m => m.Id == 2).FirstOrDefault();
@@ -87,10 +99,11 @@ namespace UserDataLib.Services
                 newUser.Username = user.Username;
                 newUser.Salt = CreateSalt();
                 newUser.Password = user.Password;
-
-                newUser.Operations = new List<Operation>();
-                newUser.Operations.Add(oper);
+                newUser.IsActive = true;
+                newUser.data = DateTime.UtcNow.AddYears(1);
                 
+                newUser.Operations = new List<Operation>();
+                newUser.Operations.Add(oper);               
                 
                 db.User.Add(newUser);
                 db.SaveChanges();
@@ -98,6 +111,7 @@ namespace UserDataLib.Services
             }
             
         }   
+
 
         public static string CreateSalt()
         {
@@ -155,6 +169,24 @@ namespace UserDataLib.Services
         public User Find(int? id)
         {
             return db.User.Find(id);
+        }
+
+        public void ChangeActivation(User user)
+        {
+            var obj = Find(user.Id);
+            if (obj == null)
+                return;
+            obj.data = user.data;
+            if(obj.data>DateTime.UtcNow)
+            {
+                obj.IsActive = true;
+            }
+            else
+            {
+                obj.IsActive = false;
+            }
+            
+            db.SaveChanges();
         }
 
         public void EditUser(User user)

@@ -16,6 +16,8 @@ namespace UserDataLib.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
+
         [Display(Name = "Users")]
         public virtual ICollection<User> Users { get; set; }
         [Display(Name = "Group of operations")]
