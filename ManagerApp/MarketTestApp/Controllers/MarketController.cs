@@ -103,13 +103,11 @@ namespace MarketTestApp.Controllers
                 return RedirectToAction("LoggedOut", "Errors");
             }
 
-            Item item = db.Item.First(x => x.Id == id);
-
-            ItemPossession poss = db.ItemPossession.First(x => x.User == currentUser && x.Item == item);
+            var poss = db.ItemPossession.First(x => x.User.Id == currentUser.Id && x.Item.Id == id);
             db.ItemPossession.Remove(poss);
             db.SaveChanges();
 
-            return RedirectToAction("Buy");
+            return RedirectToAction("Sell");
         }
     }
 }
