@@ -1,5 +1,6 @@
 namespace MarketTestApp.Migrations
 {
+    using MarketTestApp.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -26,6 +27,14 @@ namespace MarketTestApp.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            context.Item.AddOrUpdate<Item>(
+                p => p.Name,
+                new Item { Name = "Coin" },
+                new Item { Name = "Sword 1" },
+                new Item { Name = "Sword 2" },
+                new Item { Name = "Sword 3" }
+            );
         }
     }
 }

@@ -15,5 +15,7 @@ namespace MarketTestApp.Models
         }
 
         public DbSet<Item> Item { get; set; }
+
+        public DbSet<ItemPossession> ItemPossession { get; set; }
     }
 }

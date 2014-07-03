@@ -7,32 +7,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MarketTestApp.Models;
+using UserDataLib.Models;
+using UserDataLib.Services;
+using MarketTestApp.Security;
 
 namespace MarketTestApp.Controllers
 {
     public class MarketController : Controller
     {
         private MarketAppContext db = new MarketAppContext();
+        private UserManager um = new UserManager(new MarketAppContext());
 
         // GET: /Market/
         public ActionResult Index()
         {
-            return View(db.Item.ToList());
-        }
-
-        // GET: /Market/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Item item = db.Item.Find(id);
-            if (item == null)
-            {
-                return HttpNotFound();
-            }
-            return View(item);
+            return RedirectToAction("Buy");
         }
 
         // GET: /Market/Create
@@ -58,70 +47,68 @@ namespace MarketTestApp.Controllers
             return View(item);
         }
 
-        // GET: /Market/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Buy()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Item item = db.Item.Find(id);
-            if (item == null)
-            {
-                return HttpNotFound();
-            }
-            return View(item);
+            return View(db.Item.ToList());
         }
 
-        // POST: /Market/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Name")] Item item)
+        [CustomAuthorize(Roles = "DoBuy")]
+        public ActionResult DoBuy(int? id)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(item);
-        }
+            User currentUser = um.GetUser();
 
-        // GET: /Market/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
+            if (currentUser == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("LoggedOut", "Errors");
             }
-            Item item = db.Item.Find(id);
-            if (item == null)
-            {
-                return HttpNotFound();
-            }
-            return View(item);
-        }
 
-        // POST: /Market/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Item item = db.Item.Find(id);
-            db.Item.Remove(item);
+            ItemPossession poss = new ItemPossession();
+                poss.Item = db.Item.Find(id);
+                poss.User = currentUser;
+                poss.Quantity = 1;
+            db.ItemPossession.Add(poss);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Buy");
         }
 
-        protected override void Dispose(bool disposing)
+        
+        public ActionResult Sell()
         {
-            if (disposing)
+            User currentUser = um.GetUser();
+
+            List<ItemPossession> possessions = db.ItemPossession.Where(x => x.User == currentUser) as List<ItemPossession>;
+
+            List<KeyValuePair<Item, int>> outputList = new List<KeyValuePair<Item, int>>();
+
+            if (possessions != null)
             {
-                db.Dispose();
+                foreach (ItemPossession it in possessions)
+                {
+                    outputList.Add(new KeyValuePair<Item, int>(it.Item, it.Quantity));
+                }
             }
-            base.Dispose(disposing);
+
+            return View(outputList);
+        }
+
+        [CustomAuthorize(Roles = "DoSell")]
+        public ActionResult DoSell(int id)
+        {
+            User currentUser = um.GetUser();
+
+            if (currentUser == null)
+            {
+                return RedirectToAction("LoggedOut", "Errors");
+            }
+
+            Item item = db.Item.First(x => x.Id == id);
+
+            ItemPossession poss = db.ItemPossession.First(x => x.User == currentUser && x.Item == item);
+            db.ItemPossession.Remove(poss);
+            db.SaveChanges();
+
+            return RedirectToAction("Buy");
         }
     }
 }

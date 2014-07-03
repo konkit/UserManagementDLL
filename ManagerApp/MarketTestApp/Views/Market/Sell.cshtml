@@ -1,0 +1,30 @@
+﻿@model List<KeyValuePair<MarketTestApp.Models.Item, int>>
+@{
+    ViewBag.Title = "Sell";
+}
+
+<h2>Sell</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Item
+        </th>
+        <th>Quantity</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.Display(item.Key.Name);
+        </td>
+        <td>
+            @Html.Display(item.Value.ToString())
+        </td>
+    </tr>
+}
+
+</table>
