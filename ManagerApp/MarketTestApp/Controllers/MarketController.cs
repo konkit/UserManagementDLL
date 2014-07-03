@@ -52,13 +52,13 @@ namespace MarketTestApp.Controllers
 
             return View(item);
         }
-
+        [CustomAuthorize(Roles = "DoBuy")]
         public ActionResult Buy()
         {
             return View(db.Item.ToList());
         }
 
-        [CustomAuthorize(Roles = "DoBuy")]
+        
         public ActionResult DoBuy(int? id)
         {
             User currentUser = um.GetUser();
