@@ -1,4 +1,4 @@
-﻿using ManagerApp.Models;
+﻿using DatabaseContext;
 using ManagerApp.Security;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace ManagerApp.Controllers
 {
     public class OperationGroupsController : BaseController
     {
-        private GroupManager gm = new GroupManager(new ManagerContext());
+        private GroupManager gm = new GroupManager(new DBContext());
         [CustomAuthorize(Roles="DisplayGroups")]
         // GET: OperationGroups
         public ActionResult Index()
@@ -74,7 +74,7 @@ namespace ManagerApp.Controllers
             {
                 Operation NewOperation = gm.AddOperation(model.Id, model.OperationId);
                 List<User> Users = gm.FindGroup(model.Id).Users.ToList();
-                UserManager um = new UserManager(new ManagerContext());
+                UserManager um = new UserManager(new DBContext());
                 foreach(User user in Users)
                 {
                     if (!user.Operations.Contains(NewOperation))
@@ -105,7 +105,7 @@ namespace ManagerApp.Controllers
             {
                 Operation OperationToDelete = gm.DeleteOperation(model.Id, model.OperationId);
                 List<User> Users = gm.FindGroup(model.Id).Users.ToList();
-                UserManager um = new UserManager(new ManagerContext());
+                UserManager um = new UserManager(new DBContext());
                 foreach (User user in Users)
                 {
                     if (user.Operations.Contains(OperationToDelete))

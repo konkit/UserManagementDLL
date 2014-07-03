@@ -6,7 +6,7 @@
 
 @using UserDataLib.Services;
 @using UserDataLib.Models;
-@using ManagerApp.Models;
+@using DatabaseContext;
 
 <h2>Details</h2>
 
@@ -24,9 +24,9 @@
         <div class="form-group">
             <div class="col-md-10">
                 @{
-                    OperationManager om = new OperationManager(new ManagerContext());
+                    OperationManager om = new OperationManager(new DBContext());
                     List<Operation> list = om.DisplayOperation();
-                    List<Operation> userOperations = new UserManager(new ManagerContext()).Find(Model.Id).Operations.ToList();
+                    List<Operation> userOperations = new UserManager(new DBContext()).Find(Model.Id).Operations.ToList();
 
                     foreach (Operation oper in list)
                     {

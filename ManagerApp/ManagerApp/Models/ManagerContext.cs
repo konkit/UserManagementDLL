@@ -1,24 +1,20 @@
-﻿using System;
+﻿/*using DatabaseContext;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using UserDataLib.Models;
 
-namespace ManagerApp.Models
+namespace DatabaseContext
 {
-    public class ManagerContext : LibContext
+    public class DBContext : DBContext
     {
-        public ManagerContext()
-            : base("Entities")
+        public DBContext()
+            : base()
         {
 
-        }
-
-        //public DbSet<Item> Item { get; set; }
-
-        
-
+        }       
         
     }
-}
+}*/

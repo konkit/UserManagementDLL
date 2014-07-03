@@ -1,4 +1,4 @@
-﻿using ManagerApp.Models;
+﻿using DatabaseContext;
 using ManagerApp.Security;
 using Newtonsoft.Json;
 using System;
@@ -18,7 +18,7 @@ namespace ManagerApp.Controllers
     
     public class UserController : BaseController
     {
-        private UserManager um = new UserManager(new ManagerContext());
+        private UserManager um = new UserManager(new DBContext());
 
         [CustomAuthorize(Roles = "DisplayUser")]
         public ActionResult Index()

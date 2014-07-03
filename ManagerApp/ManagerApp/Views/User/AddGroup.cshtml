@@ -6,7 +6,7 @@
 
 @using UserDataLib.Services;
 @using UserDataLib.Models;
-@using ManagerApp.Models;
+@using DatabaseContext;
 
 <h2>Details</h2>
 
@@ -24,9 +24,9 @@
         <div class="form-group">
             <div class="col-md-10">
                 @{
-                    GroupManager gm = new GroupManager(new ManagerContext());
+                    GroupManager gm = new GroupManager(new DBContext());
                     List<OperationGroup> list = gm.DisplayGropus();
-                    List<OperationGroup> userGroups = new UserManager(new ManagerContext()).Find(Model.Id).OperationGroups.ToList();
+                    List<OperationGroup> userGroups = new UserManager(new DBContext()).Find(Model.Id).OperationGroups.ToList();
 
                     foreach (OperationGroup group in list)
                     {

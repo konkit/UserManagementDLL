@@ -1,19 +1,18 @@
-namespace MarketTestApp.Migrations
+namespace DatabaseContext.Migrations
 {
-    using MarketTestApp.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MarketTestApp.Models.MarketAppContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DatabaseContext.DBContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(MarketTestApp.Models.MarketAppContext context)
+        protected override void Seed(DatabaseContext.DBContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -27,14 +26,6 @@ namespace MarketTestApp.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
-            //context.Item.AddOrUpdate<Item>(
-            //    p => p.Name,
-            //    new Item { Name = "Coin" },
-            //    new Item { Name = "Sword 1" },
-            //    new Item { Name = "Sword 2" },
-            //    new Item { Name = "Sword 3" }
-            //);
         }
     }
 }

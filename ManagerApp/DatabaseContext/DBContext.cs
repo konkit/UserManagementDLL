@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 using UserDataLib.Models;
-namespace MarketTestApp.Models
-{
-    public class MarketAppContext : LibContext
-    {
-        public MarketAppContext()
-            : base("Entities")
-        {
 
+namespace DatabaseContext
+{
+    public class DBContext : LibContext
+    {
+        public DBContext() : base("Entities")
+        {
+                
         }
 
         public DbSet<Item> Item { get; set; }

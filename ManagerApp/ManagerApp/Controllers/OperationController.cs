@@ -1,4 +1,4 @@
-﻿using ManagerApp.Models;
+﻿using DatabaseContext;
 using ManagerApp.Security;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace ManagerApp.Controllers
     
     public class OperationController : Controller
     {
-        private OperationManager om = new OperationManager(new ManagerContext());
+        private OperationManager om = new OperationManager(new DBContext());
         [CustomAuthorize(Roles="DisplayOperations")]
         // GET: /Operation/
         public ActionResult Index()

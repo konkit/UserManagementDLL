@@ -6,7 +6,7 @@
 
 @using UserDataLib.Services;
 @using UserDataLib.Models;
-@using ManagerApp.Models;
+@using DatabaseContext;
 
 <h2>Details</h2>
 
@@ -24,7 +24,7 @@
         <div class="form-group">
             <div class="col-md-10">
                 @{
-                    Model.GroupsList = new UserManager(new ManagerContext()).Find(Model.Id).OperationGroups.ToList();    
+                    Model.GroupsList = new UserManager(new DBContext()).Find(Model.Id).OperationGroups.ToList();    
                 }
                 @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.GroupsList, "id", "name"), "-- Please select a group --")
                 @Html.ValidationMessageFor(model => model.GroupId)

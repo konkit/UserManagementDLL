@@ -6,21 +6,21 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MarketTestApp.Models;
 using UserDataLib.Models;
 using UserDataLib.Services;
 using MarketTestApp.Security;
+using DatabaseContext;
 
 namespace MarketTestApp.Controllers
 {
     public class MarketController : Controller
     {
-        private MarketAppContext db;
+        private DBContext db;
         private UserManager um;
 
         public MarketController()
         {
-             db = new MarketAppContext();
+             db = new DBContext();
              um = new UserManager(db);
         }
 

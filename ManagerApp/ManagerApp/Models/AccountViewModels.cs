@@ -1,6 +1,6 @@
 ﻿/*using System.ComponentModel.DataAnnotations;
 
-namespace ManagerApp.Models
+namespace DatabaseContext
 {
     public class ExternalLoginConfirmationViewModel
     {

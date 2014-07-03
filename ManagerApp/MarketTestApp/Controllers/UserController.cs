@@ -1,10 +1,7 @@
-﻿using MarketTestApp.Models;
+﻿using DatabaseContext;
 using MarketTestApp.Security;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,7 +15,7 @@ namespace MarketTestApp.Controllers
 
         public class UserController : BaseController
         {
-            private UserManager um = new UserManager(new MarketAppContext());
+            private UserManager um = new UserManager(new DBContext());
 
             [CustomAuthorize(Roles = "DisplayUser")]
             public ActionResult Index()

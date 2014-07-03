@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using UserDataLib.Models;
 
-namespace MarketTestApp.Models
+namespace DatabaseContext
 {
     public class ItemPossession
     {

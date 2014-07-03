@@ -6,7 +6,7 @@
 
 @using UserDataLib.Services;
 @using UserDataLib.Models;
-@using ManagerApp.Models;
+@using DatabaseContext;
 
 <h2>Details</h2>
 
@@ -24,9 +24,9 @@
         <div class="form-group">
             <div class="col-md-10">
                 @{
-                    UserManager um = new UserManager(new ManagerContext());
+                    UserManager um = new UserManager(new DBContext());
                     List<Operation> list = um.DeleteUser();
-                    List<Operation> groupUsers = new GroupManager(new ManagerContext()).FindGroup(Model.Id).Users.ToList();
+                    List<Operation> groupUsers = new GroupManager(new DBContext()).FindGroup(Model.Id).Users.ToList();
 
                     foreach (User user in list)
                     {
