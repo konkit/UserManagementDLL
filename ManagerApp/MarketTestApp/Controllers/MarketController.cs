@@ -30,7 +30,7 @@ namespace MarketTestApp.Controllers
             return RedirectToAction("Buy");
         }
 
-        // GET: /Market/Create
+        [CustomAuthorize(Roles = "CreateItem")]
         public ActionResult Create()
         {
             return View();
