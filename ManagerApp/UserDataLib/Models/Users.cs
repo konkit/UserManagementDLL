@@ -19,6 +19,6 @@ namespace UserDataLib.Models
         [Key]
         public int Id { get; set; }
         [Display(Name = "Users")]
-        public List<User> UserList { get; set; }
+        public virtual List<User> UserList { get; set; }
     }
 }

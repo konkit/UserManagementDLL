@@ -79,6 +79,7 @@ namespace UserDataLib.Services
         }
         public bool ChangeActiveAccount(LoginViewModel user)
         {
+            
             var model = db.User.FirstOrDefault(x => x.Username == user.Username);
             if(model.data<DateTime.UtcNow)
             {

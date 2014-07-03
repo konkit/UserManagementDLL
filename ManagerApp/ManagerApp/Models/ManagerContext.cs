@@ -15,7 +15,7 @@ namespace ManagerApp.Models
 
         }
 
-        public DbSet<Item> Item { get; set; }
+        //public DbSet<Item> Item { get; set; }
 
         
 

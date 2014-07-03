@@ -28,13 +28,13 @@ namespace MarketTestApp.Migrations
             //    );
             //
 
-            context.Item.AddOrUpdate<Item>(
-                p => p.Name,
-                new Item { Name = "Coin" },
-                new Item { Name = "Sword 1" },
-                new Item { Name = "Sword 2" },
-                new Item { Name = "Sword 3" }
-            );
+            //context.Item.AddOrUpdate<Item>(
+            //    p => p.Name,
+            //    new Item { Name = "Coin" },
+            //    new Item { Name = "Sword 1" },
+            //    new Item { Name = "Sword 2" },
+            //    new Item { Name = "Sword 3" }
+            //);
         }
     }
 }

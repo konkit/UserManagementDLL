@@ -36,14 +36,20 @@
         </td>
         <td>
             @{
-                var collectionGroup = item.OperationGroups.Select(x => x.Name).ToList();
-                @Html.Name(String.Join(", ", collectionGroup));
+                
+                if (item.OperationGroups != null) { 
+                    var collectionGroup = item.OperationGroups.Select(x => x.Name).ToList();                   
+                    @Html.Name(String.Join(", ", collectionGroup));
+                 }
             }
         </td>
         <td>
             @{
-                var collectionUsers = item.Users.Select(x => x.Username).ToList();
-                @Html.Name(String.Join(", ", collectionUsers));
+                if(item.Users!=null)
+                {
+                    var collectionUsers = item.Users.Select(x => x.Username).ToList();
+                    @Html.Name(String.Join(", ", collectionUsers));
+                }                
             }
         </td>
         <td>

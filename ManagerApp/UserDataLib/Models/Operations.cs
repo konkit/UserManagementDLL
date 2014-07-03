@@ -21,6 +21,6 @@ namespace UserDataLib.Models
         public int Id { get; set; }
 
         [Display(Name = "Operations")]
-        public List<Operation> OperationsList { get; set; }
+        public virtual List<Operation> OperationsList { get; set; }
     }
 }

@@ -38,7 +38,10 @@ namespace UserDataLib.Models
 
         [Display(Name = "Operations")]
         [UIHint("Index")]
-        public virtual ICollection<Operation> Operations { get; set; }
+        public virtual ICollection<Operation> Operations { 
+            get; 
+            set; 
+        }
         [Display(Name = "Groups of operations")]
         public virtual ICollection<OperationGroup> OperationGroups { get; set; }
     }

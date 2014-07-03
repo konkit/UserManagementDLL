@@ -175,6 +175,7 @@ namespace ManagerApp.Controllers
                 if(isValid)     
                 {
                     var modelUser = um.getUser(user.Username, user.Password);
+
                     var operations = modelUser.Operations.Select(m => m.Name).ToArray();
                     
                     CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
