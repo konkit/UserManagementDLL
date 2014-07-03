@@ -77,19 +77,9 @@ namespace MarketTestApp.Controllers
         {
             User currentUser = um.GetUser();
 
-            List<ItemPossession> possessions = db.ItemPossession.Where(x => x.User == currentUser) as List<ItemPossession>;
+            List<Item> outputItems = db.ItemPossession.Where(x => x.User == currentUser).Select(x => x.Item).ToList();
 
-            List<KeyValuePair<Item, int>> outputList = new List<KeyValuePair<Item, int>>();
-
-            if (possessions != null)
-            {
-                foreach (ItemPossession it in possessions)
-                {
-                    outputList.Add(new KeyValuePair<Item, int>(it.Item, it.Quantity));
-                }
-            }
-
-            return View(outputList);
+            return View(outputItems);
         }
 
         [CustomAuthorize(Roles = "DoSell")]
