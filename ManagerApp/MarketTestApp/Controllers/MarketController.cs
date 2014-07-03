@@ -15,8 +15,14 @@ namespace MarketTestApp.Controllers
 {
     public class MarketController : Controller
     {
-        private MarketAppContext db = new MarketAppContext();
-        private UserManager um = new UserManager(new MarketAppContext());
+        private MarketAppContext db;
+        private UserManager um;
+
+        public MarketController()
+        {
+             db = new MarketAppContext();
+             um = new UserManager(db);
+        }
 
         // GET: /Market/
         public ActionResult Index()
@@ -64,7 +70,7 @@ namespace MarketTestApp.Controllers
 
             ItemPossession poss = new ItemPossession();
                 poss.Item = db.Item.Find(id);
-                poss.User = currentUser;
+                poss.UserId = currentUser.Id;
                 poss.Quantity = 1;
             db.ItemPossession.Add(poss);
             db.SaveChanges();
@@ -77,7 +83,12 @@ namespace MarketTestApp.Controllers
         {
             User currentUser = um.GetUser();
 
-            List<Item> outputItems = db.ItemPossession.Where(x => x.User == currentUser).Select(x => x.Item).ToList();
+            if (currentUser == null)
+            {
+                return RedirectToAction("LoggedOut", "Errors");
+            }
+
+            List<Item> outputItems = db.ItemPossession.Where(x => x.User.Id == currentUser.Id).Select(x => x.Item).ToList();
 
             return View(outputItems);
         }
