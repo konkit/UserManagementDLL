@@ -21,7 +21,13 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td> 
-            @Html.ActionLink("Sell", "DoSell", new { id=item.Id })
+            @{
+    if (User.IsInRole("DoSell"))
+    {
+        @Html.ActionLink("Sell", "DoSell", new { id = item.Id })
+    }
+}
+            
         </td>
     </tr>
 }

@@ -7,7 +7,12 @@
 <h2>Buy items</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @{
+        if (User.IsInRole("CreateItem"))
+        {
+            @Html.ActionLink("Create New", "Create")
+        }
+    }
 </p>
 <table class="table">
     <tr>
@@ -23,7 +28,13 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Buy item", "DoBuy", new { id = item.Id }) 
+            @{
+                if(User.IsInRole("DoBuy"))
+                {
+                    @Html.ActionLink("Buy item", "DoBuy", new { id = item.Id })
+                }
+            }
+            
         </td>
     </tr>
 }
