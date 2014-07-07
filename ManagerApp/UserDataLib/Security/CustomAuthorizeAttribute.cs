@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace ManagerApp.Security
+namespace UserDataLib.Security
 {
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {

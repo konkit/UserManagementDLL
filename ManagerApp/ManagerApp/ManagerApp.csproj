@@ -173,9 +173,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManagerContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\BaseViewPage.cs" />
-    <Compile Include="Security\CustomAuthorizeAttribute.cs" />
-    <Compile Include="Security\CustomPrincipal.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

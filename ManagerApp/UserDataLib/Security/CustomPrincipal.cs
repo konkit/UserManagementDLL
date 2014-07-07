@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 
-namespace ManagerApp.Security
+namespace UserDataLib.Security
 {
     public class CustomPrincipal : IPrincipal
     {

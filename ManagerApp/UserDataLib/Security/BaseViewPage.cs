@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ManagerApp.Security
+namespace UserDataLib.Security
 {
     public abstract class BaseViewPage : WebViewPage
     {
