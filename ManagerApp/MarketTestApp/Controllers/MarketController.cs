@@ -78,7 +78,7 @@ namespace MarketTestApp.Controllers
             return RedirectToAction("Buy");
         }
 
-        
+        [CustomAuthorize(Roles = "DoSell")]
         public ActionResult Sell()
         {
             User currentUser = um.GetUser();
@@ -93,7 +93,7 @@ namespace MarketTestApp.Controllers
             return View(outputItems);
         }
 
-        [CustomAuthorize(Roles = "DoSell")]
+        
         public ActionResult DoSell(int id)
         {
             User currentUser = um.GetUser();
