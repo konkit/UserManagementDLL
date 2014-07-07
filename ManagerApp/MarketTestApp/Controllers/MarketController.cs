@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using UserDataLib.Models;
 using UserDataLib.Services;
-using MarketTestApp.Security;
+using UserDataLib.Security;
 using DatabaseContext;
 
 namespace MarketTestApp.Controllers
