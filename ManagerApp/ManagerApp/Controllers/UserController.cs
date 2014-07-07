@@ -15,7 +15,7 @@ using UserDataLib.Services;
 
 namespace ManagerApp.Controllers
 {
-    
+    [CustomAuthorize(Groups = "Administrators")]
     public class UserController : BaseController
     {
         private UserManager um = new UserManager(new DBContext());
@@ -159,13 +159,14 @@ namespace ManagerApp.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        
+        [AllowAnonymous]
         public virtual ActionResult Login(LoginViewModel user,  string returnUrl = "")
         {      
             
@@ -177,11 +178,13 @@ namespace ManagerApp.Controllers
                     var modelUser = um.getUser(user.Username, user.Password);
 
                     var operations = modelUser.Operations.Select(m => m.Name).ToArray();
+                    var groups = modelUser.OperationGroups.Select(g=>g.Name).ToArray();
                     
                     CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
                     serializeModel.UserId = modelUser.Id;
                     serializeModel.Username = modelUser.Username;
                     serializeModel.operations = operations;
+                    serializeModel.groups = groups;
                     
                     string userData = JsonConvert.SerializeObject(serializeModel);
                     FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
@@ -214,7 +217,7 @@ namespace ManagerApp.Controllers
                 ModelState.AddModelError("", "Your account is not active!");
             return View();
         }
-
+        [AllowAnonymous]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

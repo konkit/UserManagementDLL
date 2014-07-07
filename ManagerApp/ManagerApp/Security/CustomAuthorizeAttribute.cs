@@ -12,6 +12,8 @@ namespace ManagerApp.Security
     {
         public string UsersConfigKey { get; set; }
         public string RolesConfigKey { get; set; }
+        public string Groups { get; set; }
+        
 
         protected virtual CustomPrincipal CurrentUser
         {
@@ -27,9 +29,10 @@ namespace ManagerApp.Security
 
                 Users = String.IsNullOrEmpty(Users) ? authorizedUsers : Users;
                 Roles = String.IsNullOrEmpty(Roles) ? authorizedRoles : Roles;
+                Groups = String.IsNullOrEmpty(Groups) ? authorizedRoles : Groups;
 
                 if (!String.IsNullOrEmpty(Roles))
-                {
+                { 
                     if (!CurrentUser.IsInRole(Roles))
                     {
                         filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Errorr", action = "AccessDenied" }));
@@ -37,6 +40,14 @@ namespace ManagerApp.Security
                         // base.OnAuthorization(filterContext); //returns to login url
                     }
                 }
+
+                if(!String.IsNullOrEmpty(Groups))
+                {
+                    if(!CurrentUser.IsInGroup(Groups))
+                    {
+                        filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Errorr", action = "AccessDenied" }));
+                    }
+                }   
 
                 if (!String.IsNullOrEmpty(Users))
                 {

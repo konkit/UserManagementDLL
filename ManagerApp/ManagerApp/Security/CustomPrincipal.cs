@@ -21,6 +21,18 @@ namespace ManagerApp.Security
             }
         }
 
+        public bool IsInGroup(string group)
+        {
+            if(groups.Any(g=>group.Contains(g)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+ 
         public CustomPrincipal(string Username)
         {
             this.Identity = new GenericIdentity(Username);
@@ -29,6 +41,7 @@ namespace ManagerApp.Security
         public int UserId { get; set; }
         public string Username { get; set; }        
         public string[] operations { get; set; }
+        public string[] groups { get; set; }
     }
 
     public class CustomPrincipalSerializeModel
@@ -36,6 +49,7 @@ namespace ManagerApp.Security
         public int UserId { get; set; }
         public string Username { get; set; }        
         public string[] operations { get; set; }
+        public string[] groups { get; set; }
     }
     
 }
