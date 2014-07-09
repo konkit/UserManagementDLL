@@ -92,7 +92,8 @@ namespace UserDataLib.Services
         }
         public void CreateUser(RegisterViewModel user)
         {
-            Operation oper = db.Operation.Where(m => m.Id == 2).FirstOrDefault();
+           
+            OperationGroup group = db.OperationGroup.Where(m => m.Name == "Users").FirstOrDefault();
             if (user!=null)
             {    
                 User newUser = new User();
@@ -104,7 +105,15 @@ namespace UserDataLib.Services
                 newUser.data = DateTime.UtcNow.AddYears(1);
                 
                 newUser.Operations = new List<Operation>();
-                newUser.Operations.Add(oper);               
+                newUser.OperationGroups = new List<OperationGroup>();
+                newUser.OperationGroups.Add(group);
+                foreach (Operation oper in group.Operations)
+                {
+                    if (!newUser.Operations.Contains(oper))
+                    {
+                        newUser.Operations.Add(oper);
+                    }
+                }
                 
                 db.User.Add(newUser);
                 db.SaveChanges();

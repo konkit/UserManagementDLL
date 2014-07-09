@@ -15,11 +15,18 @@ using UserDataLib.Services;
 
 namespace ManagerApp.Controllers
 {
-    [CustomAuthorize(Groups = "Administrators")]
+    [CustomAuthorize(Groups = "Administrators,Users,")]
+    
     public class UserController : BaseController
     {
-        private UserManager um = new UserManager(new DBContext());
+        private UserManager um ;
 
+        public UserController()
+        {
+            um = new UserManager(new DBContext());
+        }
+
+        [Authorize]
         [CustomAuthorize(Roles = "DisplayUser")]
         public ActionResult Index()
         {
@@ -170,42 +177,50 @@ namespace ManagerApp.Controllers
         public virtual ActionResult Login(LoginViewModel user,  string returnUrl = "")
         {      
             
-            if(ModelState.IsValid && um.ChangeActiveAccount(user))
+            if(ModelState.IsValid)  
             {
                 bool isValid = um.LoginUserIsValid(user);
                 if(isValid)     
                 {
-                    var modelUser = um.getUser(user.Username, user.Password);
-
-                    var operations = modelUser.Operations.Select(m => m.Name).ToArray();
-                    var groups = modelUser.OperationGroups.Select(g=>g.Name).ToArray();
-                    
-                    CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
-                    serializeModel.UserId = modelUser.Id;
-                    serializeModel.Username = modelUser.Username;
-                    serializeModel.operations = operations;
-                    serializeModel.groups = groups;
-                    
-                    string userData = JsonConvert.SerializeObject(serializeModel);
-                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
-                             1,
-                             modelUser.Username,
-                             DateTime.Now,
-                             DateTime.Now.AddMinutes(15),
-                             false,
-                             userData);
-                    
-                    string encTicket = FormsAuthentication.Encrypt(authTicket);
-                    HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
-                    Response.Cookies.Add(faCookie);
-                    
-                    if (operations.Contains("admin"))
+                    if(um.ChangeActiveAccount(user))
                     {
-                        return RedirectToAction("Index", "User");
+                        var modelUser = um.getUser(user.Username, user.Password);
+
+                        var operations = modelUser.Operations.Select(m => m.Name).ToArray();
+                        var groups = modelUser.OperationGroups.Select(g => g.Name).ToArray();
+
+                        CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
+                        serializeModel.UserId = modelUser.Id;
+                        serializeModel.Username = modelUser.Username;
+                        serializeModel.operations = operations;
+                        serializeModel.groups = groups;
+
+                        string userData = JsonConvert.SerializeObject(serializeModel);
+                        FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                                 1,
+                                 modelUser.Username,
+                                 DateTime.Now,
+                                 DateTime.Now.AddMinutes(15),
+                                 false,
+                                 userData);
+
+                        string encTicket = FormsAuthentication.Encrypt(authTicket);
+                        HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+                        Response.Cookies.Add(faCookie);
+
+                        if (operations.Contains("admin"))
+                        {
+                            return RedirectToAction("Index", "User");
+                        }
+                        //FormsAuthentication.SetAuthCookie(user.Username, true);
+
+                        return RedirectToAction("Index", "Home");
                     }
-                    //FormsAuthentication.SetAuthCookie(user.Username, true);
-                   
-                    return RedirectToAction("Index", "Home");
+                    else
+                    {
+                        ModelState.AddModelError("", "Your account is not active! ");
+                    }
+                    
                 }   
                 else
                 {
@@ -214,7 +229,7 @@ namespace ManagerApp.Controllers
                 
             }
             else
-                ModelState.AddModelError("", "Your account is not active!");
+                ModelState.AddModelError("", "Error");
             return View();
         }
         [AllowAnonymous]

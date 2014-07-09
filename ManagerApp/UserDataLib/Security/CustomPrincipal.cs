@@ -23,14 +23,16 @@ namespace UserDataLib.Security
 
         public bool IsInGroup(string group)
         {
-            if(groups.Any(g=>group.Contains(g)))
+            string[] gropus = group.Split(',');
+            foreach(string word in gropus)
             {
-                return true;
+                if (groups.Any(g => word.Contains(g)))
+                {
+                    return true;
+                }
+               
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
  
         public CustomPrincipal(string Username)
