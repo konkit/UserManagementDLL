@@ -6,11 +6,11 @@ using System.Web.Mvc;
 
 namespace MarketTestApp.Controllers
 {
-    public class ErrorsController : Controller
+    public class ErrorrController : Controller
     {
         //
         // GET: /Errors/
-        public ActionResult Index()
+        public ActionResult AccessDenied()
         {
             return View();
         }
