@@ -41,36 +41,43 @@ namespace MarketTestApp.Controllers
                     bool isValid = um.LoginUserIsValid(user);
                     if (isValid)     // TU W OGOLE NIE WCHODZI
                     {
-                        var modelUser = um.getUser(user.Username, user.Password);
-                        var operations = modelUser.Operations.Select(m => m.Name).ToArray();
-                        var groups = modelUser.OperationGroups.Select(g=>g.Name).ToArray();
+                        if(um.ChangeActiveAccount(user))
+                        {   
+                            var modelUser = um.getUser(user.Username, user.Password);
+                            var operations = modelUser.Operations.Select(m => m.Name).ToArray();
+                            var groups = modelUser.OperationGroups.Select(g=>g.Name).ToArray();
 
-                        CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
-                        serializeModel.UserId = modelUser.Id;
-                        serializeModel.Username = modelUser.Username;
-                        serializeModel.operations = operations;
-                        serializeModel.groups = groups;
+                            CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
+                            serializeModel.UserId = modelUser.Id;
+                            serializeModel.Username = modelUser.Username;
+                            serializeModel.operations = operations;
+                            serializeModel.groups = groups;
 
-                        string userData = JsonConvert.SerializeObject(serializeModel);
-                        FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
-                                 1,
-                                 modelUser.Username,
-                                 DateTime.Now,
-                                 DateTime.Now.AddMinutes(15),
-                                 false,
-                                 userData);
+                            string userData = JsonConvert.SerializeObject(serializeModel);
+                            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                                     1,
+                                     modelUser.Username,
+                                     DateTime.Now,
+                                     DateTime.Now.AddMinutes(15),
+                                     false,
+                                     userData);
 
-                        string encTicket = FormsAuthentication.Encrypt(authTicket);
-                        HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
-                        Response.Cookies.Add(faCookie);
+                            string encTicket = FormsAuthentication.Encrypt(authTicket);
+                            HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+                            Response.Cookies.Add(faCookie);
 
-                        if (operations.Contains("admin"))
-                        {
-                            return RedirectToAction("Index", "User");
+                            if (operations.Contains("admin"))
+                            {
+                                return RedirectToAction("Index", "User");
+                            }
+                            //FormsAuthentication.SetAuthCookie(user.Username, true);
+
+                            return RedirectToAction("Index", "Home");
                         }
-                        //FormsAuthentication.SetAuthCookie(user.Username, true);
-
-                        return RedirectToAction("Index", "Home");
+                        else
+                        {
+                            ModelState.AddModelError("", "Your account is not active! ");
+                        }
                     }
                     else
                     {

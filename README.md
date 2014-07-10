@@ -1,4 +1,12 @@
-﻿UserManagementDLL
+﻿Projekt temat: Administrator systemu informatycznego
+Grupa GKiO1
+skład seckji: Katarzyna Biernat
+	      Joanna Deorowicz
+	      Wojtek Walczyszyn
+	      Paweł Kluba
+	      Łukasz Tenerowicz - kierownik
+semestr: szósty
+rok:     2014
 =================
 
 Jest to aplikacja tworzona w celu realizacji projektu z przedmiotu Bazy Danych III. Szczegółowa specyfikacja jak i początkowy schemat bazy danych znajduje się w folderze [Docs](https://github.com/konkit/UserManagementDLL/tree/master/Docs).
