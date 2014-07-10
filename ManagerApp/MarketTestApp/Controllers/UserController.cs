@@ -43,11 +43,13 @@ namespace MarketTestApp.Controllers
                     {
                         var modelUser = um.getUser(user.Username, user.Password);
                         var operations = modelUser.Operations.Select(m => m.Name).ToArray();
+                        var groups = modelUser.OperationGroups.Select(g=>g.Name).ToArray();
 
                         CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
                         serializeModel.UserId = modelUser.Id;
                         serializeModel.Username = modelUser.Username;
                         serializeModel.operations = operations;
+                        serializeModel.groups = groups;
 
                         string userData = JsonConvert.SerializeObject(serializeModel);
                         FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(

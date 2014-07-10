@@ -13,6 +13,7 @@ using DatabaseContext;
 
 namespace MarketTestApp.Controllers
 {
+    [CustomAuthorize(Groups="Administrators,Users")]
     public class MarketController : Controller
     {
         private DBContext db;
@@ -52,20 +53,20 @@ namespace MarketTestApp.Controllers
 
             return View(item);
         }
-        [CustomAuthorize(Roles = "DoBuy")]
+        [CustomAuthorize(Roles = "DisplayItems")]
         public ActionResult Buy()
         {
             return View(db.Item.ToList());
         }
 
-        
+        [CustomAuthorize(Roles = "DoBuy")]
         public ActionResult DoBuy(int? id)
         {
             User currentUser = um.GetUser();
 
             if (currentUser == null)
             {
-                return RedirectToAction("LoggedOut", "Errors");
+                return RedirectToAction("LoggedOut", "Errorr");
             }
 
             ItemPossession poss = new ItemPossession();
@@ -85,7 +86,7 @@ namespace MarketTestApp.Controllers
 
             if (currentUser == null)
             {
-                return RedirectToAction("LoggedOut", "Errors");
+                return RedirectToAction("LoggedOut", "Errorr");
             }
 
             List<Item> outputItems = db.ItemPossession.Where(x => x.User.Id == currentUser.Id).Select(x => x.Item).ToList();
@@ -100,7 +101,7 @@ namespace MarketTestApp.Controllers
 
             if (currentUser == null)
             {
-                return RedirectToAction("LoggedOut", "Errors");
+                return RedirectToAction("LoggedOut", "Errorr");
             }
 
             var poss = db.ItemPossession.First(x => x.User.Id == currentUser.Id && x.Item.Id == id);

@@ -34,6 +34,7 @@ namespace MarketTestApp
                 newUser.Username = serializeModel.Username;
 
                 newUser.operations = serializeModel.operations;
+                newUser.groups = serializeModel.groups;
 
                 HttpContext.Current.User = newUser;
             }

@@ -6,30 +6,38 @@
 
 <h2>Sell</h2>
 
+@if (User.Identity.IsAuthenticated)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @{
+                        if (User.IsInRole("DoSell"))
+                        {
+                            @Html.ActionLink("Sell", "DoSell", new { id = item.Id })
+                        }
+                    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td> 
-            @{
-    if (User.IsInRole("DoSell"))
-    {
-        @Html.ActionLink("Sell", "DoSell", new { id = item.Id })
-    }
+                </td>
+            </tr>
+        }
+
+    </table>
 }
-            
-        </td>
-    </tr>
+else
+{
+   @Html.Action("AccessDenied", "Errorr")
 }
 
-</table>
