@@ -13,7 +13,7 @@ using DatabaseContext;
 
 namespace MarketTestApp.Controllers
 {
-    [CustomAuthorize(Groups="Administrators,Users")]
+    [CustomAuthorize(Groups="Administrators,SuperUsers,Users,")]
     public class MarketController : Controller
     {
         private DBContext db;

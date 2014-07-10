@@ -45,7 +45,8 @@ namespace UserDataLib.Security
                 {
                     if(!CurrentUser.IsInGroup(Groups))
                     {
-                        filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Errorr", action = "AccessDenied" }));
+                        if(CurrentUser.operations.Length==0)
+                            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Errorr", action = "AccessDenied" }));
                     }
                 }   
 
